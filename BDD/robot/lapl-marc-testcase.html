@@ -1,0 +1,269 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+<meta name="generator" content="HTML Tidy for Cygwin (vers 1st September 2004), see www.w3.org">
+<style type="text/css">
+html {
+    font-family: Arial,Helvetica,sans-serif;
+    background-color: white;
+    color: black;
+}
+p {
+    max-width: 60em;
+}
+table {
+    border-collapse: collapse;
+    empty-cells: show;
+    margin: 1em 0em;
+    border: 0.1em solid black;
+}
+th, td {
+    border-style: solid;
+    border-width: 0.05em 0.1em;
+    border-color: black;
+    padding: 0.1em 0.2em;
+    height: 1.5em;
+}
+th {
+    background-color: rgb(192, 192, 192);
+    color: black;
+    border-width: 0.1em;
+    font-weight: bold;
+    text-align: center;
+    text-transform: capitalize;
+    letter-spacing: 0.1em;
+}
+/* Widths of named columns */
+col.name {
+    width: 10em;
+}
+.action, .value, .arg {
+    width: 15em;
+}
+/* Properties for the name column 
+- td:first-child should work in CSS 2.1 avare browsers (tested in Firefox)
+- col.name is against specs but works in IE
+ */
+td:first-child, col.name {
+    background-color: rgb(240, 240, 240);
+    text-transform: capitalize;
+    letter-spacing: 0.1em;
+   }
+   /* required for IE */
+   th {
+       font-style: normal;
+   }
+</style>
+<title>Robot Test Cases</title></head>
+
+<body>
+<h1>Robot Test Cases</h1>
+Run `pybot lapl-marc-testcase.html` to run tests.
+<table border="1">
+    <colgroup span="99"><col class="name"><col class="value" span="4"></colgroup>
+    <thead>
+        <tr>
+            <th>Setting</th>
+            <th>Value</th>
+            <th>Value</th>
+            <th>value</th>
+            <th>Value</th>
+        </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>Library</td>
+        <td>OperatingSystem</td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Library</td>
+        <td>XML</td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Library</td>
+        <td>json</td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Library</td>
+        <td>RobotCouchDB.RobotCouchDB</td>
+        <td>${urlcouchdb}</td>
+        <td>ucldc</td>
+        <td></td>
+    </tr>
+    </tbody>
+</table>
+<table border="1">
+    <colgroup span="99"><col class="name"><col class="value" span="4"></colgroup>
+    <thead>
+        <tr>
+            <th>Variable</th>
+            <th>Value</th>
+            <th>Value</th>
+            <th>Value</th>
+            <th>Value</th>
+        </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>${marcxmlfile}</td>
+        <td>../testdata/tf9580129n.xml</td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>${couchdbfile}</td>
+        <td>../testdata/tf9580129n-couchdb.json</td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>${urlcouchdb}</td>
+        <td>https://54.84.142.143/couchdb/</td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    </tbody>
+</table>
+<table border="1">
+    <colgroup span="99"><col class="name"><col class="action"><col class="arg" span="3"></colgroup>
+    <thead>
+        <tr>
+            <th>Test Case</th>
+            <th>Action</th>
+            <th>Argument</th>
+            <th>Argument</th>
+            <th>Argument</th>
+        </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>subject length</td>
+        <td>${orig}</td>
+        <td>Parse Xml</td>
+        <td>${marcxmlfile}</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>Log To Console</td>
+        <td>${orig}</td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>${subjects} =  </td>
+        <td>Get Elements</td>
+        <td>${orig}</td>
+        <td>./facet/group/docHit/meta/subject</td>
+    </tr>
+    <!--
+<tr>
+<td></td>
+<td>Log To Console</td>
+<td>${subjects}</td>
+<td></td>
+<td></td>
+</tr>
+-->
+    <tr>
+        <td></td>
+        <td>Length Should Be</td>
+        <td>${subjects}</td>
+        <td>11</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>${couchdbfixture}</td>
+        <td>Get File</td>
+        <td>${couchdbfile}</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>${couchdbobj}</td>
+        <td>loads</td>
+        <td>${couchdbfixture}</td>
+        <td></td>
+    </tr>
+    <!--
+<tr>
+<td></td>
+<td>Log To Console</td>
+<td>${couchdbobj}</td>
+<td></td>
+<td></td>
+</tr>
+-->
+    <tr>
+        <td></td>
+        <td>${cdblen} = </td>
+        <td>Get Length</td>
+        <td>${couchdbobj['sourceResource']['subject']}</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>Should Be Equal As Numbers</td>
+        <td>${cdblen}</td>
+        <td>11</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>grab data test</td>
+        <td>${cdoc}</td>
+        <td>Get Couch Doc</td>
+        <td>1916-preparedness-day-parade-bombing-1916-1933-pho--http://ark.cdlib.org/ark:/13030/tf0c6007xf</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>Log To Console</td>
+        <td>${cdoc['sourceResource']['title']}</td>
+        <td></td>
+        <td></td>
+    </tr>
+    </tbody>
+</table>
+<table border="1">
+    <colgroup span="99"><col class="name"><col class="action"><col class="arg" span="3"></colgroup>
+    <thead>
+        <tr>
+            <th>Keyword</th>
+            <th>Action</th>
+            <th>Argument</th>
+            <th>Argument</th>
+            <th>Argument</th>
+        </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

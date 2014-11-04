@@ -1,0 +1,207 @@
+{
+  "isShownBy": {
+    "src": "http://content.cdlib.org/ark:/13030/tf8h4nb84g/hi-res",
+    "X": 1500,
+    "Y": 1112
+  },
+  "originalRecord": {
+    "facet-onlineItems": "Items online",
+    "identifier": [
+      "http://ark.cdlib.org/ark:/13030/tf8h4nb84g",
+      "BANC PIC 1963.002:0932--E"
+    ],
+    "dateStamp": "2006-03-16",
+    "reference-image": [
+      {
+        "src": "http://content.cdlib.org/ark:/13030/tf8h4nb84g/med-res",
+        "X": 750,
+        "Y": 556
+      },
+      {
+        "src": "http://content.cdlib.org/ark:/13030/tf8h4nb84g/hi-res",
+        "X": 1500,
+        "Y": 1112
+      }
+    ],
+    "thumbnail": {
+      "src": "http://content.cdlib.org/ark:/13030/tf8h4nb84g/thumbnail",
+      "X": 220,
+      "Y": 163
+    },
+    "type": "image",
+    "oac4-tab": "Items::image",
+    "iso-end-date": "1888:00:00",
+    "title": "Bird's-eye view of Redlands, San Bernardino Co[unty], Cal[ifornia], June 1888, looking southeast",
+    "facet-institution": "UC Berkeley::Bancroft Library",
+    "sort-title": "birdseye view of redlands san bernardino county california june 1888 looking southeast",
+    "facet-oac-tab": "digital item",
+    "creator": "Moore, Edwin S. (active ca. 1880), artist",
+    "relation-from": "http://oac.cdlib.org/findaid/ark:/13030/tf9p3012wq|Robert B. Honeyman, Jr. Collection of Early Californian and Western American Pictorial Material",
+    "relation": [
+      "http://oac.cdlib.org/findaid/ark:/13030/tf9p3012wq",
+      "ark:/13030/tf7r29p8s0",
+      "http://bancroft.berkeley.edu/",
+      "http://www.bampfa.berkeley.edu/moac/",
+      "http://sunsite.berkeley.edu/CalHeritage/",
+      "http://calisphere.universityofcalifornia.edu/"
+    ],
+    "year": "1888",
+    "sort-year": "1888",
+    "campus": [
+      {
+        "name": "UC Berkeley",
+        "@id": "https://registry.cdlib.org/api/v1/campus/1/"
+      }
+    ],
+    "subject": [
+      "Agriculture;",
+      "Buildings;",
+      "California, Southern;",
+      "Settlements",
+      "Robert B. Honeyman, Jr. Collection of Early Californian and Western American Pictorial Material",
+      "Individual items by geographical location",
+      "Southern California: Other"
+    ],
+    "handle": [
+      "http://ark.cdlib.org/ark:/13030/tf8h4nb84g",
+      "BANC PIC 1963.002:0932--E"
+    ],
+    "description": [
+      "Small town surrounded by extensive orchards, mountains in distance. Marginal images include residences, schools, and hotels.",
+      "Printed title (LC). Printed (LL, within image): E.S. Moore, artist. Each image captioned. Printed legend."
+    ],
+    "repository": [
+      {
+        "name": "Bancroft Library",
+        "@id": "https://registry.cdlib.org/api/v1/repository/4/"
+      }
+    ],
+    "format": [
+      "\nprint on paper: lithograph\n61 x 89 cm.",
+      "jp2"
+    ],
+    "institution-doublelist": [
+      "B::Bancroft Library::UC Berkeley",
+      "U::UC Berkeley::Bancroft Library"
+    ],
+    "sort-creator": "Moore",
+    "collection": [
+      {
+        "name": "Honeyman (Robert B., Jr.) - Collection of Early Californian and Western American Pictorial Material",
+        "@id": "https://registry.cdlib.org/api/v1/collection/141/"
+      }
+    ],
+    "date": "1888",
+    "publisher": "Bancroft Library.",
+    "iso-start-date": "1888:00:00",
+    "institution-url": "http://bancroft.berkeley.edu/",
+    "facet-collection-order": "ark:/13030/tf9p3012wq::0592",
+    "facet-collection-title": "Robert B. Honeyman, Jr. Collection of Early Californian and Western American Pictorial Material",
+    "facet-decade": "1880s",
+    "facet-subject": [
+      "Agriculture;",
+      "Buildings;",
+      "California, Southern;",
+      "Settlements"
+    ],
+    "facet-type-tab": "image"
+  },
+  "dataProvider": "Bancroft Library",
+  "ingestType": "item",
+  "@context": {
+    "LCSH": "http://id.loc.gov/authorities/subjects",
+    "provider": "edm:provider",
+    "originalRecord": "dpla:originalRecord",
+    "collection": "dpla:aggregation",
+    "dpla": "http://dp.la/terms/",
+    "object": "edm:object",
+    "sourceResource": "edm:sourceResource",
+    "name": "xsd:string",
+    "hasView": "edm:hasView",
+    "@vocab": "http://purl.org/dc/terms/",
+    "begin": {
+      "@type": "xsd:date",
+      "@id": "dpla:dateRangeStart"
+    },
+    "edm": "http://www.europeana.eu/schemas/edm/",
+    "state": "dpla:state",
+    "aggregatedDigitalResource": "dpla:aggregatedDigitalResource",
+    "coordinates": "dpla:coordinates",
+    "isShownAt": "edm:isShownAt",
+    "stateLocatedIn": "dpla:stateLocatedIn",
+    "end": {
+      "@type": "xsd:date",
+      "@id": "dpla:dateRangeEnd"
+    },
+    "dataProvider": "edm:dataProvider"
+  },
+  "sourceResource": {
+    "subject": [
+      {
+        "name": "Agriculture"
+      },
+      {
+        "name": "Buildings"
+      },
+      {
+        "name": "California, Southern"
+      },
+      {
+        "name": "Settlements"
+      },
+      {
+        "name": "Robert B. Honeyman, Jr. Collection of Early Californian and Western American Pictorial Material"
+      },
+      {
+        "name": "Individual items by geographical location"
+      },
+      {
+        "name": "Southern California: Other"
+      }
+    ],
+    "type": "image",
+    "identifier": [
+      "http://ark.cdlib.org/ark:/13030/tf8h4nb84g",
+      "BANC PIC 1963.002:0932--E"
+    ],
+    "title": "Bird's-eye view of Redlands, San Bernardino Co[unty], Cal[ifornia], June 1888, looking southeast",
+    "publisher": "Bancroft Library",
+    "description": [
+      "Small town surrounded by extensive orchards, mountains in distance. Marginal images include residences, schools, and hotels.",
+      "Printed title (LC). Printed (LL, within image): E.S. Moore, artist. Each image captioned. Printed legend."
+    ],
+    "format": [
+      "print on paper: lithograph\n61 x 89 cm.",
+      "jp2"
+    ],
+    "creator": "Moore, Edwin S. (active ca. 1880), artist",
+    "collection": [
+      {
+        "name": "Honeyman (Robert B., Jr.) - Collection of Early Californian and Western American Pictorial Material",
+        "@id": "https://registry.cdlib.org/api/v1/collection/141/"
+      }
+    ],
+    "date": "1888",
+    "relation": [
+      "http://oac.cdlib.org/findaid/ark:/13030/tf9p3012wq",
+      "ark:/13030/tf7r29p8s0",
+      "http://bancroft.berkeley.edu/",
+      "http://www.bampfa.berkeley.edu/moac/",
+      "http://sunsite.berkeley.edu/CalHeritage/",
+      "http://calisphere.universityofcalifornia.edu/"
+    ],
+    "stateLocatedIn": [
+      {
+        "name": "California"
+      }
+    ]
+  },
+  "_id": "honeyman-collection-the-robert-b-honeyman-jr-colle--http://ark.cdlib.org/ark:/13030/tf8h4nb84g",
+  "_rev": "11-5275a72fa52be4b81351447bb34bbff3",
+  "@id": "http://dp.la/api/items/712e7613ef220e6ba4d41cbc94347ed7",
+  "object": "8f811bff10fc946bf695b680e1108e47",
+  "ingestDate": "2014-08-08T02:56:47.512578",
+  "id": "712e7613ef220e6ba4d41cbc94347ed7",
+  "ingestionSequence": 6,
+  "isShownAt": "http://ark.cdlib.org/ark:/13030/tf8h4nb84g"
+}

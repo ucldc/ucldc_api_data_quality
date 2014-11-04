@@ -1,0 +1,130 @@
+{
+  "response": {
+    "docs": [
+      {
+        "timestamp": "2014-10-02T21:04:06.478Z",
+        "_version_": 1480886946604515300,
+        "subject_ss": [
+          "Agriculture",
+          "Buildings",
+          "California, Southern",
+          "Settlements",
+          "Robert B. Honeyman, Jr. Collection of Early Californian and Western American Pictorial Material",
+          "Individual items by geographical location",
+          "Southern California: Other"
+        ],
+        "subject": [
+          "Agriculture",
+          "Buildings",
+          "California, Southern",
+          "Settlements",
+          "Robert B. Honeyman, Jr. Collection of Early Californian and Western American Pictorial Material",
+          "Individual items by geographical location",
+          "Southern California: Other"
+        ],
+        "campus": [
+          "https://registry.cdlib.org/api/v1/campus/1/"
+        ],
+        "type_ss": [
+          "image"
+        ],
+        "type": [
+          "image"
+        ],
+        "identifier_ss": [
+          "http://ark.cdlib.org/ark:/13030/tf8h4nb84g",
+          "BANC PIC 1963.002:0932--E"
+        ],
+        "identifier": [
+          "http://ark.cdlib.org/ark:/13030/tf8h4nb84g",
+          "BANC PIC 1963.002:0932--E"
+        ],
+        "title_ss": [
+          "Bird's-eye view of Redlands, San Bernardino Co[unty], Cal[ifornia], June 1888, looking southeast"
+        ],
+        "title": [
+          "Bird's-eye view of Redlands, San Bernardino Co[unty], Cal[ifornia], June 1888, looking southeast"
+        ],
+        "date_ss": [
+          "1888"
+        ],
+        "date": [
+          "1888"
+        ],
+        "relation_ss": [
+          "http://oac.cdlib.org/findaid/ark:/13030/tf9p3012wq",
+          "ark:/13030/tf7r29p8s0",
+          "http://bancroft.berkeley.edu/",
+          "http://www.bampfa.berkeley.edu/moac/",
+          "http://sunsite.berkeley.edu/CalHeritage/",
+          "http://calisphere.universityofcalifornia.edu/"
+        ],
+        "relation": [
+          "http://oac.cdlib.org/findaid/ark:/13030/tf9p3012wq",
+          "ark:/13030/tf7r29p8s0",
+          "http://bancroft.berkeley.edu/",
+          "http://www.bampfa.berkeley.edu/moac/",
+          "http://sunsite.berkeley.edu/CalHeritage/",
+          "http://calisphere.universityofcalifornia.edu/"
+        ],
+        "collection_name": [
+          "Honeyman (Robert B., Jr.) - Collection of Early Californian and Western American Pictorial Material"
+        ],
+        "publisher_ss": [
+          "Bancroft Library"
+        ],
+        "publisher": [
+          "Bancroft Library"
+        ],
+        "repository": [
+          "https://registry.cdlib.org/api/v1/repository/4/"
+        ],
+        "description_ss": [
+          "Small town surrounded by extensive orchards, mountains in distance. Marginal images include residences, schools, and hotels.",
+          "Printed title (LC). Printed (LL, within image): E.S. Moore, artist. Each image captioned. Printed legend."
+        ],
+        "description": [
+          "Small town surrounded by extensive orchards, mountains in distance. Marginal images include residences, schools, and hotels.",
+          "Printed title (LC). Printed (LL, within image): E.S. Moore, artist. Each image captioned. Printed legend."
+        ],
+        "url_item": "http://ark.cdlib.org/ark:/13030/tf8h4nb84g",
+        "repository_name": [
+          "Bancroft Library"
+        ],
+        "format": [
+          "print on paper: lithograph\n61 x 89 cm.",
+          "jp2"
+        ],
+        "format_ss": [
+          "print on paper: lithograph\n61 x 89 cm.",
+          "jp2"
+        ],
+        "creator": [
+          "Moore, Edwin S. (active ca. 1880), artist"
+        ],
+        "creator_ss": [
+          "Moore, Edwin S. (active ca. 1880), artist"
+        ],
+        "collection": [
+          "https://registry.cdlib.org/api/v1/collection/141/"
+        ],
+        "id": "honeyman-collection-the-robert-b-honeyman-jr-colle--http://ark.cdlib.org/ark:/13030/tf8h4nb84g",
+        "campus_name": [
+          "UC Berkeley"
+        ],
+        "reference_image_md5": "8f811bff10fc946bf695b680e1108e47"
+      }
+    ],
+    "start": 0,
+    "numFound": 1
+  },
+  "responseHeader": {
+    "params": {
+      "wt": "json",
+      "q": "id:honeyman-collection-the-robert-b-honeyman-jr-colle--*tf8h4nb84g",
+      "indent": "true"
+    },
+    "QTime": 70,
+    "status": 0
+  }
+}

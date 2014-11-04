@@ -1,0 +1,229 @@
+{
+  "isShownBy": {
+    "src": "http://content.cdlib.org/ark:/13030/tf9580129n/hi-res",
+    "X": 1500,
+    "Y": 1261
+  },
+  "originalRecord": {
+    "facet-onlineItems": "Items online",
+    "identifier": [
+      "http://ark.cdlib.org/ark:/13030/tf9580129n",
+      "BANC PIC 1963.002:0766--FR"
+    ],
+    "dateStamp": "2006-03-16",
+    "facet-type-tab": "image",
+    "facet-subject": [
+      "Animals;",
+      "Children;",
+      "Clothing ﹠ dress;",
+      "Dwellings;",
+      "Frontier ﹠ pioneer life;",
+      "Hunting;",
+      "Settlers;",
+      "Women"
+    ],
+    "type": "image",
+    "oac4-tab": "Items::image",
+    "iso-end-date": "1867:00:00",
+    "facet-azBrowse": "Frontier and pioneer life",
+    "title": "The pioneer's home: on the western frontier",
+    "facet-institution": "UC Berkeley::Bancroft Library",
+    "azBrowse": "Frontier and pioneer life",
+    "sort-title": "pioneers home on the western frontier",
+    "facet-oac-tab": "digital item",
+    "creator": "Palmer, Francis Florabond (Fanny) (1812-1876), British, artist\nCurrier & Ives (active 1857-1907), American, lithographer and publisher",
+    "relation-from": "http://oac.cdlib.org/findaid/ark:/13030/tf9p3012wq|Robert B. Honeyman, Jr. Collection of Early Californian and Western American Pictorial Material",
+    "relation": [
+      "http://oac.cdlib.org/findaid/ark:/13030/tf9p3012wq",
+      "ark:/13030/tf7r29p8s0",
+      "http://bancroft.berkeley.edu/",
+      "http://www.bampfa.berkeley.edu/moac/",
+      "http://sunsite.berkeley.edu/CalHeritage/",
+      "http://calisphere.universityofcalifornia.edu/"
+    ],
+    "year": "1867",
+    "sort-year": "1867",
+    "campus": [
+      {
+        "name": "UC Berkeley",
+        "@id": "https://registry.cdlib.org/api/v1/campus/1/"
+      }
+    ],
+    "subject": [
+      "Animals;",
+      "Children;",
+      "Clothing & dress;",
+      "Dwellings;",
+      "Frontier & pioneer life;",
+      "Hunting;",
+      "Settlers;",
+      "Women",
+      "Robert B. Honeyman, Jr. Collection of Early Californian and Western American Pictorial Material",
+      "Individual items by geographical location",
+      "West (U.S.): Other"
+    ],
+    "thumbnail": {
+      "src": "http://content.cdlib.org/ark:/13030/tf9580129n/thumbnail",
+      "X": 220,
+      "Y": 185
+    },
+    "reference-image": [
+      {
+        "src": "http://content.cdlib.org/ark:/13030/tf9580129n/med-res",
+        "X": 750,
+        "Y": 631
+      },
+      {
+        "src": "http://content.cdlib.org/ark:/13030/tf9580129n/hi-res",
+        "X": 1500,
+        "Y": 1261
+      }
+    ],
+    "handle": [
+      "http://ark.cdlib.org/ark:/13030/tf9580129n",
+      "BANC PIC 1963.002:0766--FR"
+    ],
+    "description": [
+      "Two hunters, carrying deer and game birds, approach with hunting dogs in forest. Set in forest by stream. Woman and children near cabin door; farmyard with chickens, goats, and barn.",
+      "Printed title (LC). Printed (LL): F.F. Palmer, del.; (LR): Currier & Ives, lith. N[ew] Y[ork]; (LC): Entered...1867 by Currier & Ives...N[ew] Y[ork]. Published by Currier & Ives 152 Nassau St[reet]. Ref. note: Peters, Currier & Ives, Vol. II, p. 335."
+    ],
+    "repository": [
+      {
+        "name": "Bancroft Library",
+        "@id": "https://registry.cdlib.org/api/v1/repository/4/"
+      }
+    ],
+    "format": [
+      "\nprint on paper: lithograph, hand colored\n53.2 x 71 cm., visible image",
+      "jp2"
+    ],
+    "institution-doublelist": [
+      "B::Bancroft Library::UC Berkeley",
+      "U::UC Berkeley::Bancroft Library"
+    ],
+    "sort-creator": "Palmer\nCurrier & Ives (active 1857-1907)",
+    "collection": [
+      {
+        "name": "Honeyman (Robert B., Jr.) - Collection of Early Californian and Western American Pictorial Material",
+        "@id": "https://registry.cdlib.org/api/v1/collection/141/"
+      }
+    ],
+    "date": "c1867",
+    "publisher": "Bancroft Library.",
+    "iso-start-date": "1867:00:00",
+    "institution-url": "http://bancroft.berkeley.edu/",
+    "facet-collection-order": "ark:/13030/tf9p3012wq::0710",
+    "facet-collection-title": "Robert B. Honeyman, Jr. Collection of Early Californian and Western American Pictorial Material",
+    "facet-decade": "1860s"
+  },
+  "dataProvider": "Bancroft Library",
+  "ingestType": "item",
+  "@context": {
+    "LCSH": "http://id.loc.gov/authorities/subjects",
+    "provider": "edm:provider",
+    "originalRecord": "dpla:originalRecord",
+    "collection": "dpla:aggregation",
+    "dpla": "http://dp.la/terms/",
+    "object": "edm:object",
+    "sourceResource": "edm:sourceResource",
+    "name": "xsd:string",
+    "hasView": "edm:hasView",
+    "@vocab": "http://purl.org/dc/terms/",
+    "begin": {
+      "@type": "xsd:date",
+      "@id": "dpla:dateRangeStart"
+    },
+    "edm": "http://www.europeana.eu/schemas/edm/",
+    "state": "dpla:state",
+    "aggregatedDigitalResource": "dpla:aggregatedDigitalResource",
+    "coordinates": "dpla:coordinates",
+    "isShownAt": "edm:isShownAt",
+    "stateLocatedIn": "dpla:stateLocatedIn",
+    "end": {
+      "@type": "xsd:date",
+      "@id": "dpla:dateRangeEnd"
+    },
+    "dataProvider": "edm:dataProvider"
+  },
+  "sourceResource": {
+    "subject": [
+      {
+        "name": "Animals"
+      },
+      {
+        "name": "Children"
+      },
+      {
+        "name": "Clothing & dress"
+      },
+      {
+        "name": "Dwellings"
+      },
+      {
+        "name": "Frontier & pioneer life"
+      },
+      {
+        "name": "Hunting"
+      },
+      {
+        "name": "Settlers"
+      },
+      {
+        "name": "Women"
+      },
+      {
+        "name": "Robert B. Honeyman, Jr. Collection of Early Californian and Western American Pictorial Material"
+      },
+      {
+        "name": "Individual items by geographical location"
+      },
+      {
+        "name": "West (U.S.): Other"
+      }
+    ],
+    "type": "image",
+    "identifier": [
+      "http://ark.cdlib.org/ark:/13030/tf9580129n",
+      "BANC PIC 1963.002:0766--FR"
+    ],
+    "title": "The pioneer's home: on the western frontier",
+    "publisher": "Bancroft Library",
+    "description": [
+      "Two hunters, carrying deer and game birds, approach with hunting dogs in forest. Set in forest by stream. Woman and children near cabin door; farmyard with chickens, goats, and barn.",
+      "Printed title (LC). Printed (LL): F.F. Palmer, del.; (LR): Currier & Ives, lith. N[ew] Y[ork]; (LC): Entered...1867 by Currier & Ives...N[ew] Y[ork]. Published by Currier & Ives 152 Nassau St[reet]. Ref. note: Peters, Currier & Ives, Vol. II, p. 335."
+    ],
+    "format": [
+      "print on paper: lithograph, hand colored\n53.2 x 71 cm., visible image",
+      "jp2"
+    ],
+    "creator": "Palmer, Francis Florabond (Fanny) (1812-1876), British, artist\nCurrier & Ives (active 1857-1907), American, lithographer and publisher",
+    "collection": [
+      {
+        "name": "Honeyman (Robert B., Jr.) - Collection of Early Californian and Western American Pictorial Material",
+        "@id": "https://registry.cdlib.org/api/v1/collection/141/"
+      }
+    ],
+    "date": "c1867",
+    "relation": [
+      "http://oac.cdlib.org/findaid/ark:/13030/tf9p3012wq",
+      "ark:/13030/tf7r29p8s0",
+      "http://bancroft.berkeley.edu/",
+      "http://www.bampfa.berkeley.edu/moac/",
+      "http://sunsite.berkeley.edu/CalHeritage/",
+      "http://calisphere.universityofcalifornia.edu/"
+    ],
+    "stateLocatedIn": [
+      {
+        "name": "California"
+      }
+    ]
+  },
+  "_id": "honeyman-collection-the-robert-b-honeyman-jr-colle--http://ark.cdlib.org/ark:/13030/tf9580129n",
+  "_rev": "11-61bf6fddfd3662228760530521f10b05",
+  "@id": "http://dp.la/api/items/337bc975e1ef6d34f6fd9a84d2d50946",
+  "object": "8605dfe88a00c0c0472c22d0cd53c176",
+  "ingestDate": "2014-08-08T02:54:47.539213",
+  "id": "337bc975e1ef6d34f6fd9a84d2d50946",
+  "ingestionSequence": 6,
+  "isShownAt": "http://ark.cdlib.org/ark:/13030/tf9580129n"
+}

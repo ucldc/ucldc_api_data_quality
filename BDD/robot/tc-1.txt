@@ -1,0 +1,29 @@
+| *Setting  | *Value
+| Library | OperatingSystem
+| Library | XML
+| Library | json
+
+| *Variable | *Value
+| ${origfile} | ../testdata/tf9580129n.xml
+
+| *Test Case    | *Action        | *Argument | *Argument
+| subject length | ${orig}       | Parse Xml | ${origfile}
+#|               | Log To Console | ${orig}
+|               | ${subjects} =  | Get Elements | ${orig} | ./facet/group/docHit/meta/subject
+#|               | Log To Console | ${subjects}
+|               | Length Should Be | ${subjects} | 11
+|               | ${couchdb}    | Get File | ../testdata/tf9580129n-couchdb.json
+|               | ${couchdbobj} | loads | ${couchdb}
+#|               | Log To Console | ${couchdbobj}
+|               | ${cdblen} =    | Get Length     | ${couchdbobj['sourceResource']['subject']}
+|               | Should Be Equal As Numbers | ${cdblen} | 11
+
+
+| *Test Case    | *Action        | *Argument | *Argument
+| title equal | ${orig}       | Parse Xml | ${origfile}
+|               | ${title} =  | Get Element | ${orig} | ./facet/group/docHit/meta/title
+|               | Log To Console | ${title.text}
+|               | ${couchdb}    | Get File | ../testdata/tf9580129n-couchdb.json
+|               | ${couchdbobj} | loads | ${couchdb}
+#|               | Log To Console | ${couchdbobj}
+|               | Should Be Equal | ${title.text} | ${couchdbobj['sourceResource']['title']}

@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<crossQueryResult queryTime="0.019" totalDocs="2270" startDoc="658" endDoc="658">
+   <parameters>
+      <route>
+         <queryParser path="style/crossQuery/queryParser/cui/queryParser.xsl"/>
+      </route>
+      <param name="docsPerPage" value="1">
+         <token value="1" isWord="yes">
+    </token>
+      </param>
+      <param name="style" value="cui">
+         <token value="cui" isWord="yes">
+    </token>
+      </param>
+      <param name="relation" value="ark:/13030/tf9p3012wq">
+         <token value="ark" isWord="yes">
+    </token>
+         <token value=":/" isWord="no">
+    </token>
+         <token value="13030/tf9p3012wq" isWord="yes">
+    </token>
+      </param>
+      <param name="facet" value="type-tab">
+         <token value="type" isWord="yes">
+    </token>
+         <token value="-" isWord="no">
+    </token>
+         <token value="tab" isWord="yes">
+    </token>
+      </param>
+      <param name="startDoc" value="659">
+         <token value="659" isWord="yes">
+    </token>
+      </param>
+   </parameters>
+   <query xmlns:session="java:org.cdlib.xtf.xslt.Session" indexPath="index"
+          termLimit="1000"
+          workLimit="20000000"
+          style="style/crossQuery/resultFormatter/cui/resultFormatter.xsl"
+          startDoc="659"
+          maxDocs="0">
+      <spellcheck suggestionsPerTerm="1"/>
+      <facet field="facet-type-tab" sortGroupsBy="value" includeEmptyGroups="yes"
+             sortDocsBy="relevance"
+             select="*|*[nonEmpty][1]#659-659"/>
+      <and>
+         <and>
+            <and field="relation">
+               <term>ark</term>
+               <term>13030/tf9p3012wq</term>
+            </and>
+         </and>
+      </and>
+   </query>
+   <facet field="facet-type-tab" totalGroups="3" totalDocs="2270">
+      <group value="image" rank="1" totalSubGroups="0" totalDocs="2270" startDoc="659"
+             endDoc="659">
+         <docHit rank="659" path="cdl:13030/9n/tf9580129n/tf9580129n.mets.xml" score="100"
+                 totalHits="0">
+            <meta>
+               <title>The pioneer's home: on the western frontier</title>
+               <creator>Palmer, Francis Florabond (Fanny) (1812-1876), British, artist
+Currier &amp; Ives (active 1857-1907), American, lithographer and publisher</creator>
+               <subject>Animals;</subject>
+               <subject>Children;</subject>
+               <subject>Clothing &amp; dress;</subject>
+               <subject>Dwellings;</subject>
+               <subject>Frontier &amp; pioneer life;</subject>
+               <subject>Hunting;</subject>
+               <subject>Settlers;</subject>
+               <subject>Women</subject>
+               <subject q="series">Robert B. Honeyman, Jr. Collection of Early Californian and Western American Pictorial Material</subject>
+               <subject q="series">Individual items by geographical location</subject>
+               <subject q="series">West (U.S.): Other</subject>
+               <description>Two hunters, carrying deer and game birds, approach with hunting dogs in forest. Set in forest by stream. Woman and children near cabin door; farmyard with chickens, goats, and barn.</description>
+               <description>Printed title (LC). Printed (LL): F.F. Palmer, del.; (LR): Currier &amp; Ives, lith. N[ew] Y[ork]; (LC): Entered...1867 by Currier &amp; Ives...N[ew] Y[ork]. Published by Currier &amp; Ives 152 Nassau St[reet]. Ref. note: Peters, Currier &amp; Ives, Vol. II, p. 335.</description>
+               <publisher>Bancroft Library.</publisher>
+               <date>c1867</date>
+               <type>image</type>
+               <format q="physdesc">
+print on paper: lithograph, hand colored
+53.2 x 71 cm., visible image</format>
+               <format q="x">jp2</format>
+               <identifier>http://ark.cdlib.org/ark:/13030/tf9580129n</identifier>
+               <identifier>BANC PIC 1963.002:0766--FR</identifier>
+               <relation q="ispartof">
+                  <snippet rank="1" score="100">http://oac.cdlib.org/findaid/<hit>
+                        <term>ark</term>:/<term>13030/tf9p3012wq</term>
+                     </hit>
+                  </snippet>
+               </relation>
+               <relation q="ispartof">ark:/13030/tf7r29p8s0</relation>
+               <relation q="ispartof">http://bancroft.berkeley.edu/</relation>
+               <relation q="vc">http://www.bampfa.berkeley.edu/moac/</relation>
+               <relation q="vc">http://sunsite.berkeley.edu/CalHeritage/</relation>
+               <relation>http://calisphere.universityofcalifornia.edu/</relation>
+               <sort-title>pioneers home on the western frontier</sort-title>
+               <sort-creator>Palmer
+Currier &amp; Ives (active 1857-1907)</sort-creator>
+               <year>1867</year>
+               <iso-start-date>1867:00:00</iso-start-date>
+               <iso-end-date>1867:00:00</iso-end-date>
+               <sort-year>1867</sort-year>
+               <relation-from q="collection">http://oac.cdlib.org/findaid/ark:/13030/tf9p3012wq|Robert B. Honeyman, Jr. Collection of Early Californian and Western American Pictorial Material</relation-from>
+               <facet-collection-title>Robert B. Honeyman, Jr. Collection of Early Californian and Western American Pictorial Material</facet-collection-title>
+               <facet-type-tab>image</facet-type-tab>
+               <oac4-tab>Items::image</oac4-tab>
+               <facet-oac-tab>digital item</facet-oac-tab>
+               <facet-subject>Animals;</facet-subject>
+               <facet-subject>Children;</facet-subject>
+               <facet-subject>Clothing ﹠ dress;</facet-subject>
+               <facet-subject>Dwellings;</facet-subject>
+               <facet-subject>Frontier ﹠ pioneer life;</facet-subject>
+               <facet-subject>Hunting;</facet-subject>
+               <facet-subject>Settlers;</facet-subject>
+               <facet-subject>Women</facet-subject>
+               <azBrowse>Frontier and pioneer life</azBrowse>
+               <facet-azBrowse>Frontier and pioneer life</facet-azBrowse>
+               <facet-onlineItems>Items online</facet-onlineItems>
+               <facet-decade>1860s</facet-decade>
+               <facet-collection-order>ark:/13030/tf9p3012wq::0710</facet-collection-order>
+               <institution-url>http://bancroft.berkeley.edu/</institution-url>
+               <google_analytics_tracking_code>UA-31403262-1</google_analytics_tracking_code>
+               <institution-doublelist>B::Bancroft Library::UC Berkeley</institution-doublelist>
+               <institution-doublelist>U::UC Berkeley::Bancroft Library</institution-doublelist>
+               <facet-institution>UC Berkeley::Bancroft Library</facet-institution>
+               <dateStamp>2006-03-16</dateStamp>
+               <reference-image X="750" Y="631" src="/ark:/13030/tf9580129n/med-res"/>
+               <reference-image X="1500" Y="1261" src="/ark:/13030/tf9580129n/hi-res"/>
+               <thumbnail X="220" Y="185"/>
+            </meta>
+         </docHit>
+      </group>
+      <group value="text" rank="2" totalSubGroups="0" totalDocs="0" startDoc="0" endDoc="0"/>
+      <group value="website" rank="3" totalSubGroups="0" totalDocs="0" startDoc="0"
+             endDoc="0"/>
+   </facet>
+</crossQueryResult>

@@ -1,0 +1,138 @@
+{
+  "response": {
+    "docs": [
+      {
+        "timestamp": "2014-10-02T21:04:12.761Z",
+        "_version_": 1480886953193767000,
+        "subject_ss": [
+          "Animals",
+          "Children",
+          "Clothing & dress",
+          "Dwellings",
+          "Frontier & pioneer life",
+          "Hunting",
+          "Settlers",
+          "Women",
+          "Robert B. Honeyman, Jr. Collection of Early Californian and Western American Pictorial Material",
+          "Individual items by geographical location",
+          "West (U.S.): Other"
+        ],
+        "subject": [
+          "Animals",
+          "Children",
+          "Clothing & dress",
+          "Dwellings",
+          "Frontier & pioneer life",
+          "Hunting",
+          "Settlers",
+          "Women",
+          "Robert B. Honeyman, Jr. Collection of Early Californian and Western American Pictorial Material",
+          "Individual items by geographical location",
+          "West (U.S.): Other"
+        ],
+        "campus": [
+          "https://registry.cdlib.org/api/v1/campus/1/"
+        ],
+        "type_ss": [
+          "image"
+        ],
+        "type": [
+          "image"
+        ],
+        "identifier_ss": [
+          "http://ark.cdlib.org/ark:/13030/tf9580129n",
+          "BANC PIC 1963.002:0766--FR"
+        ],
+        "identifier": [
+          "http://ark.cdlib.org/ark:/13030/tf9580129n",
+          "BANC PIC 1963.002:0766--FR"
+        ],
+        "title_ss": [
+          "The pioneer's home: on the western frontier"
+        ],
+        "title": [
+          "The pioneer's home: on the western frontier"
+        ],
+        "date_ss": [
+          "c1867"
+        ],
+        "date": [
+          "c1867"
+        ],
+        "relation_ss": [
+          "http://oac.cdlib.org/findaid/ark:/13030/tf9p3012wq",
+          "ark:/13030/tf7r29p8s0",
+          "http://bancroft.berkeley.edu/",
+          "http://www.bampfa.berkeley.edu/moac/",
+          "http://sunsite.berkeley.edu/CalHeritage/",
+          "http://calisphere.universityofcalifornia.edu/"
+        ],
+        "relation": [
+          "http://oac.cdlib.org/findaid/ark:/13030/tf9p3012wq",
+          "ark:/13030/tf7r29p8s0",
+          "http://bancroft.berkeley.edu/",
+          "http://www.bampfa.berkeley.edu/moac/",
+          "http://sunsite.berkeley.edu/CalHeritage/",
+          "http://calisphere.universityofcalifornia.edu/"
+        ],
+        "collection_name": [
+          "Honeyman (Robert B., Jr.) - Collection of Early Californian and Western American Pictorial Material"
+        ],
+        "publisher_ss": [
+          "Bancroft Library"
+        ],
+        "publisher": [
+          "Bancroft Library"
+        ],
+        "repository": [
+          "https://registry.cdlib.org/api/v1/repository/4/"
+        ],
+        "description_ss": [
+          "Two hunters, carrying deer and game birds, approach with hunting dogs in forest. Set in forest by stream. Woman and children near cabin door; farmyard with chickens, goats, and barn.",
+          "Printed title (LC). Printed (LL): F.F. Palmer, del.; (LR): Currier & Ives, lith. N[ew] Y[ork]; (LC): Entered...1867 by Currier & Ives...N[ew] Y[ork]. Published by Currier & Ives 152 Nassau St[reet]. Ref. note: Peters, Currier & Ives, Vol. II, p. 335."
+        ],
+        "description": [
+          "Two hunters, carrying deer and game birds, approach with hunting dogs in forest. Set in forest by stream. Woman and children near cabin door; farmyard with chickens, goats, and barn.",
+          "Printed title (LC). Printed (LL): F.F. Palmer, del.; (LR): Currier & Ives, lith. N[ew] Y[ork]; (LC): Entered...1867 by Currier & Ives...N[ew] Y[ork]. Published by Currier & Ives 152 Nassau St[reet]. Ref. note: Peters, Currier & Ives, Vol. II, p. 335."
+        ],
+        "url_item": "http://ark.cdlib.org/ark:/13030/tf9580129n",
+        "repository_name": [
+          "Bancroft Library"
+        ],
+        "format": [
+          "print on paper: lithograph, hand colored\n53.2 x 71 cm., visible image",
+          "jp2"
+        ],
+        "format_ss": [
+          "print on paper: lithograph, hand colored\n53.2 x 71 cm., visible image",
+          "jp2"
+        ],
+        "creator": [
+          "Palmer, Francis Florabond (Fanny) (1812-1876), British, artist\nCurrier & Ives (active 1857-1907), American, lithographer and publisher"
+        ],
+        "creator_ss": [
+          "Palmer, Francis Florabond (Fanny) (1812-1876), British, artist\nCurrier & Ives (active 1857-1907), American, lithographer and publisher"
+        ],
+        "collection": [
+          "https://registry.cdlib.org/api/v1/collection/141/"
+        ],
+        "id": "honeyman-collection-the-robert-b-honeyman-jr-colle--http://ark.cdlib.org/ark:/13030/tf9580129n",
+        "campus_name": [
+          "UC Berkeley"
+        ],
+        "reference_image_md5": "8605dfe88a00c0c0472c22d0cd53c176"
+      }
+    ],
+    "start": 0,
+    "numFound": 1
+  },
+  "responseHeader": {
+    "params": {
+      "wt": "json",
+      "q": "id:*tf9580129n*",
+      "indent": "true"
+    },
+    "QTime": 8,
+    "status": 0
+  }
+}

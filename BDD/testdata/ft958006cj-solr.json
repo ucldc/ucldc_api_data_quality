@@ -1,0 +1,112 @@
+{
+  "response": {
+    "docs": [
+      {
+        "timestamp": "2014-10-02T20:51:47.851Z",
+        "_version_": 1480886172097970200,
+        "subject_ss": [
+          "Arcata",
+          "Arcata Plaza",
+          "Bicycles",
+          "Portraits - Male",
+          "Portraits - Group",
+          "Ericson Photograph Collection",
+          "Region 04 Arcata to Blue Lake to Korbel"
+        ],
+        "subject": [
+          "Arcata",
+          "Arcata Plaza",
+          "Bicycles",
+          "Portraits - Male",
+          "Portraits - Group",
+          "Ericson Photograph Collection",
+          "Region 04 Arcata to Blue Lake to Korbel"
+        ],
+        "type_ss": [
+          "image"
+        ],
+        "type": [
+          "image"
+        ],
+        "identifier_ss": [
+          "http://ark.cdlib.org/ark:/13030/ft958006cj",
+          "1999.02.0184"
+        ],
+        "identifier": [
+          "http://ark.cdlib.org/ark:/13030/ft958006cj",
+          "1999.02.0184"
+        ],
+        "date_ss": [
+          "Unknown"
+        ],
+        "date": [
+          "Unknown"
+        ],
+        "relation_ss": [
+          "http://oac.cdlib.org/findaid/ark:/13030/tf3489n5x0",
+          "ark:/13030/tf609nb7vz",
+          "http://library.humboldt.edu/humco/",
+          "http://calisphere.universityofcalifornia.edu/"
+        ],
+        "collection_name": [
+          "Ericson Photograph Collection"
+        ],
+        "publisher_ss": [
+          "Humboldt State University Library"
+        ],
+        "publisher": [
+          "Humboldt State University Library"
+        ],
+        "repository": [
+          "https://registry.cdlib.org/api/v1/repository/77/"
+        ],
+        "description_ss": [
+          "None.",
+          "04"
+        ],
+        "description": [
+          "None.",
+          "04"
+        ],
+        "url_item": "http://ark.cdlib.org/ark:/13030/ft958006cj",
+        "repository_name": [
+          "Humboldt State University Library"
+        ],
+        "format": [
+          "Photographic negative, glass, b & w, 8x10 in"
+        ],
+        "format_ss": [
+          "Photographic negative, glass, b & w, 8x10 in"
+        ],
+        "title": [
+          "[Cyclists posing on theArcata Plaza]"
+        ],
+        "title_ss": [
+          "[Cyclists posing on theArcata Plaza]"
+        ],
+        "collection": [
+          "https://registry.cdlib.org/api/v1/collection/6916/"
+        ],
+        "id": "ericson-photograph-collection--http://ark.cdlib.org/ark:/13030/ft958006cj",
+        "reference_image_md5": "3bcf528fdf2140e5447f77e26670e3db",
+        "relation": [
+          "http://oac.cdlib.org/findaid/ark:/13030/tf3489n5x0",
+          "ark:/13030/tf609nb7vz",
+          "http://library.humboldt.edu/humco/",
+          "http://calisphere.universityofcalifornia.edu/"
+        ]
+      }
+    ],
+    "start": 0,
+    "numFound": 1
+  },
+  "responseHeader": {
+    "params": {
+      "wt": "json",
+      "q": "id:ericson-photograph-collection--*ft958006cj",
+      "indent": "true"
+    },
+    "QTime": 20,
+    "status": 0
+  }
+}

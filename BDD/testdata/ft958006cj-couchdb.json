@@ -1,0 +1,182 @@
+{
+  "isShownBy": {
+    "src": "http://content.cdlib.org/ark:/13030/ft958006cj/hi-res",
+    "X": 2000,
+    "Y": 1500
+  },
+  "originalRecord": {
+    "facet-onlineItems": "Items online",
+    "identifier": [
+      "http://ark.cdlib.org/ark:/13030/ft958006cj",
+      "1999.02.0184"
+    ],
+    "dateStamp": "2006-03-16",
+    "facet-type-tab": "image",
+    "facet-subject": [
+      "Arcata",
+      "Arcata Plaza",
+      "Bicycles",
+      "Portraits - Male",
+      "Portraits - Group"
+    ],
+    "facet-collection-title": "Ericson Photograph Collection,",
+    "facet-collection-order": "ark:/13030/tf3489n5x0::162",
+    "institution-url": "http://library.humboldt.edu/humco/",
+    "publisher": "Humboldt State University Library.",
+    "date": "Unknown",
+    "collection": [
+      {
+        "name": "Ericson Photograph Collection",
+        "@id": "https://registry.cdlib.org/api/v1/collection/6916/"
+      }
+    ],
+    "institution-doublelist": "H::Humboldt State University Library",
+    "title": "[Cyclists posing on theArcata Plaza]",
+    "facet-institution": "Humboldt State University Library",
+    "subject": [
+      "Arcata",
+      "Arcata Plaza",
+      "Bicycles",
+      "Portraits - Male",
+      "Portraits - Group",
+      "Ericson Photograph Collection,",
+      "Region 04 Arcata to Blue Lake to Korbel"
+    ],
+    "campus": [],
+    "sort-title": "cyclists posing on thearcata plaza",
+    "relation": [
+      "http://oac.cdlib.org/findaid/ark:/13030/tf3489n5x0",
+      "ark:/13030/tf609nb7vz",
+      "http://library.humboldt.edu/humco/",
+      "http://calisphere.universityofcalifornia.edu/"
+    ],
+    "relation-from": "http://oac.cdlib.org/findaid/ark:/13030/tf3489n5x0|Ericson Photograph Collection,",
+    "facet-oac-tab": "digital item",
+    "oac4-tab": "Items::image",
+    "type": "image",
+    "thumbnail": {
+      "src": "http://content.cdlib.org/ark:/13030/ft958006cj/thumbnail",
+      "X": 125,
+      "Y": 94
+    },
+    "reference-image": [
+      {
+        "src": "http://content.cdlib.org/ark:/13030/ft958006cj/med-res",
+        "X": 700,
+        "Y": 525
+      },
+      {
+        "src": "http://content.cdlib.org/ark:/13030/ft958006cj/hi-res",
+        "X": 2000,
+        "Y": 1500
+      }
+    ],
+    "handle": [
+      "http://ark.cdlib.org/ark:/13030/ft958006cj",
+      "1999.02.0184"
+    ],
+    "description": [
+      "None.",
+      "04"
+    ],
+    "repository": [
+      {
+        "name": "Humboldt State University Library",
+        "@id": "https://registry.cdlib.org/api/v1/repository/77/"
+      }
+    ],
+    "format": "Photographic negative, glass, b & w, 8x10 in"
+  },
+  "dataProvider": "Humboldt State University Library",
+  "ingestType": "item",
+  "@context": {
+    "LCSH": "http://id.loc.gov/authorities/subjects",
+    "provider": "edm:provider",
+    "originalRecord": "dpla:originalRecord",
+    "edm": "http://www.europeana.eu/schemas/edm/",
+    "collection": "dpla:aggregation",
+    "dpla": "http://dp.la/terms/",
+    "object": "edm:object",
+    "name": "xsd:string",
+    "hasView": "edm:hasView",
+    "@vocab": "http://purl.org/dc/terms/",
+    "begin": {
+      "@type": "xsd:date",
+      "@id": "dpla:dateRangeStart"
+    },
+    "end": {
+      "@type": "xsd:date",
+      "@id": "dpla:dateRangeEnd"
+    },
+    "state": "dpla:state",
+    "aggregatedDigitalResource": "dpla:aggregatedDigitalResource",
+    "coordinates": "dpla:coordinates",
+    "isShownAt": "edm:isShownAt",
+    "stateLocatedIn": "dpla:stateLocatedIn",
+    "sourceResource": "edm:sourceResource",
+    "dataProvider": "edm:dataProvider"
+  },
+  "sourceResource": {
+    "subject": [
+      {
+        "name": "Arcata"
+      },
+      {
+        "name": "Arcata Plaza"
+      },
+      {
+        "name": "Bicycles"
+      },
+      {
+        "name": "Portraits - Male"
+      },
+      {
+        "name": "Portraits - Group"
+      },
+      {
+        "name": "Ericson Photograph Collection"
+      },
+      {
+        "name": "Region 04 Arcata to Blue Lake to Korbel"
+      }
+    ],
+    "type": "image",
+    "identifier": [
+      "http://ark.cdlib.org/ark:/13030/ft958006cj",
+      "1999.02.0184"
+    ],
+    "publisher": "Humboldt State University Library",
+    "description": [
+      "None.",
+      "04"
+    ],
+    "format": "Photographic negative, glass, b & w, 8x10 in",
+    "title": "[Cyclists posing on theArcata Plaza]",
+    "collection": [
+      {
+        "name": "Ericson Photograph Collection",
+        "@id": "https://registry.cdlib.org/api/v1/collection/6916/"
+      }
+    ],
+    "stateLocatedIn": [
+      {
+        "name": "California"
+      }
+    ],
+    "relation": [
+      "http://oac.cdlib.org/findaid/ark:/13030/tf3489n5x0",
+      "ark:/13030/tf609nb7vz",
+      "http://library.humboldt.edu/humco/",
+      "http://calisphere.universityofcalifornia.edu/"
+    ],
+    "date": "Unknown"
+  },
+  "_id": "ericson-photograph-collection--http://ark.cdlib.org/ark:/13030/ft958006cj",
+  "_rev": "12-7615aca99d38c811e71ca107911dc6b2",
+  "@id": "http://dp.la/api/items/7f445fd354dd6939fb3a56048715764d",
+  "object": "3bcf528fdf2140e5447f77e26670e3db",
+  "ingestDate": "2014-08-08T14:22:48.649747",
+  "id": "7f445fd354dd6939fb3a56048715764d",
+  "ingestionSequence": 3,
+  "isShownAt": "http://ark.cdlib.org/ark:/13030/ft958006cj"
+}

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<crossQueryResult queryTime="0.015" totalDocs="497" startDoc="193" endDoc="193">
+   <parameters>
+      <route>
+         <queryParser path="style/crossQuery/queryParser/cui/queryParser.xsl"/>
+      </route>
+      <param name="docsPerPage" value="1">
+         <token value="1" isWord="yes">
+    </token>
+      </param>
+      <param name="style" value="cui">
+         <token value="cui" isWord="yes">
+    </token>
+      </param>
+      <param name="relation" value="ark:/13030/tf3489n5x0">
+         <token value="ark" isWord="yes">
+    </token>
+         <token value=":/" isWord="no">
+    </token>
+         <token value="13030/tf3489n5x0" isWord="yes">
+    </token>
+      </param>
+      <param name="facet" value="type-tab">
+         <token value="type" isWord="yes">
+    </token>
+         <token value="-" isWord="no">
+    </token>
+         <token value="tab" isWord="yes">
+    </token>
+      </param>
+      <param name="startDoc" value="194">
+         <token value="194" isWord="yes">
+    </token>
+      </param>
+   </parameters>
+   <query xmlns:session="java:org.cdlib.xtf.xslt.Session" indexPath="index"
+          termLimit="1000"
+          workLimit="20000000"
+          style="style/crossQuery/resultFormatter/cui/resultFormatter.xsl"
+          startDoc="194"
+          maxDocs="0">
+      <spellcheck suggestionsPerTerm="1"/>
+      <facet field="facet-type-tab" sortGroupsBy="value" includeEmptyGroups="yes"
+             sortDocsBy="relevance"
+             select="*|*[nonEmpty][1]#194-194"/>
+      <and>
+         <and>
+            <and field="relation">
+               <term>ark</term>
+               <term>13030/tf3489n5x0</term>
+            </and>
+         </and>
+      </and>
+   </query>
+   <facet field="facet-type-tab" totalGroups="3" totalDocs="497">
+      <group value="image" rank="1" totalSubGroups="0" totalDocs="497" startDoc="194"
+             endDoc="194">
+         <docHit rank="194" path="cdl:13030/cj/ft958006cj/ft958006cj.mets.xml" score="100"
+                 totalHits="0">
+            <meta>
+               <title>[Cyclists posing on theArcata Plaza]</title>
+               <subject>Arcata</subject>
+               <subject>Arcata Plaza</subject>
+               <subject>Bicycles</subject>
+               <subject>Portraits - Male</subject>
+               <subject>Portraits - Group</subject>
+               <subject q="series">Ericson Photograph Collection,</subject>
+               <subject q="series">Region 04 Arcata to Blue Lake to Korbel</subject>
+               <description>None.</description>
+               <description>04</description>
+               <publisher>Humboldt State University Library.</publisher>
+               <date>Unknown</date>
+               <type>image</type>
+               <format q="physdesc">Photographic negative, glass, b &amp; w, 8x10 in</format>
+               <identifier>http://ark.cdlib.org/ark:/13030/ft958006cj</identifier>
+               <identifier>1999.02.0184</identifier>
+               <relation q="ispartof">
+                  <snippet rank="1" score="100">http://oac.cdlib.org/findaid/<hit>
+                        <term>ark</term>:/<term>13030/tf3489n5x0</term>
+                     </hit>
+                  </snippet>
+               </relation>
+               <relation q="ispartof">ark:/13030/tf609nb7vz</relation>
+               <relation q="ispartof">http://library.humboldt.edu/humco/</relation>
+               <relation>http://calisphere.universityofcalifornia.edu/</relation>
+               <sort-title>cyclists posing on thearcata plaza</sort-title>
+               <relation-from q="collection">http://oac.cdlib.org/findaid/ark:/13030/tf3489n5x0|Ericson Photograph Collection,</relation-from>
+               <facet-collection-title>Ericson Photograph Collection,</facet-collection-title>
+               <facet-type-tab>image</facet-type-tab>
+               <oac4-tab>Items::image</oac4-tab>
+               <facet-oac-tab>digital item</facet-oac-tab>
+               <facet-subject>Arcata</facet-subject>
+               <facet-subject>Arcata Plaza</facet-subject>
+               <facet-subject>Bicycles</facet-subject>
+               <facet-subject>Portraits - Male</facet-subject>
+               <facet-subject>Portraits - Group</facet-subject>
+               <facet-onlineItems>Items online</facet-onlineItems>
+               <facet-collection-order>ark:/13030/tf3489n5x0::162</facet-collection-order>
+               <institution-url>http://library.humboldt.edu/humco/</institution-url>
+               <institution-doublelist>H::Humboldt State University Library</institution-doublelist>
+               <facet-institution>Humboldt State University Library</facet-institution>
+               <dateStamp>2006-03-16</dateStamp>
+               <reference-image X="700" Y="525" src="/ark:/13030/ft958006cj/med-res"/>
+               <reference-image X="2000" Y="1500" src="/ark:/13030/ft958006cj/hi-res"/>
+               <thumbnail X="125" Y="94"/>
+            </meta>
+         </docHit>
+      </group>
+      <group value="text" rank="2" totalSubGroups="0" totalDocs="0" startDoc="0" endDoc="0"/>
+      <group value="website" rank="3" totalSubGroups="0" totalDocs="0" startDoc="0"
+             endDoc="0"/>
+   </facet>
+</crossQueryResult>

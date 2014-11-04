@@ -1,0 +1,8 @@
+* Setting * | Value
+Library        | OperatingSystem
+
+* Keyword * | Action | Argument | Argument
+
+
+* Test Case * | Action | Argument | Argument | Argument
+Compare orig to solr | 

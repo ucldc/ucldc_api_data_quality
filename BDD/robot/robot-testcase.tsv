@@ -1,0 +1,12 @@
+* Setting *	Value		
+Library	OperatingSystem		
+Library	XML		
+Library	json		
+			
+* Test Case *	Action	Argument	Argument
+orig vs couch	${orig}=	Get File	../testdata/tf9580129n.xml
+	${origxmlobj}=	Parse XML	${orig}
+	${couchdb}=	Get File	../testdata/tf9580129n-couchdb.json
+	${cdbjsonobj}=	loads	${couchdb}
+			
+	ShouldBeEqual	${orig}	${couchdb}
