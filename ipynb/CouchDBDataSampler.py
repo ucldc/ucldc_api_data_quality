@@ -7,7 +7,7 @@
 # =============================
 # 
 # This should provide a base for creating random samples of documents in a collection in Couch DB.
-# It will create a new db "samples_from_<cid>_<date>" in couchdb for use in QA.
+# It will create a new db **`ucldc_samples_from_<cid>_<date>`** in couchdb for use in QA.
 
 # <codecell>
 
@@ -44,13 +44,13 @@ def get_collection_ids(couchdb, collection_id):
 # <codecell>
 
 def get_sample_ids(collection_ids, sample_size):
-    population_size = len(doc_ids)
+    population_size = len(collection_ids)
     sample_ids = set()
     # NOTE: Each time this is run, a different sample set will be generated. Remember that notebooks cache results!
     # It may also take more than sample_size loops, if collisions in random ids occur set will not grow
-    while len(sample_ids) <= sample_size:
+    while len(sample_ids) < sample_size:
         rand_index = random.randint(0, population_size - 1)
-        sample_ids.add(doc_ids[rand_index])
+        sample_ids.add(collection_ids[rand_index])
     return sample_ids
 
 # <codecell>
