@@ -22,7 +22,7 @@ import couchdb
 
 collection_id = '1678' # NOTE: is a string, not a number though numeric data
 sample_size = 3
-sample_db_name_template = 'ucldc_samples_from_{}_{}'
+SAMPLE_DB_NAME_TEMPLATE = 'ucldc_samples_from_{}_{}'
 
 # <codecell>
 
@@ -30,34 +30,47 @@ sample_db_name_template = 'ucldc_samples_from_{}_{}'
 server = couchdb.Server()
 server.resource.credentials = ('admin', os.environ['COUCHDB_PASSWORD'])
 cdb = server['ucldc']
-v = cdb.view('all_provider_docs/by_provider_name',
+
+# <codecell>
+
+def get_collection_ids(couchdb, collection_id):
+    v = cdb.view('all_provider_docs/by_provider_name',
              key=collection_id)
-doc_ids = []
-for row in v:
-    doc_ids.append(row['id'])
-print('Docs in collection:{}'.format(len(doc_ids)))
+    doc_ids = []
+    for row in v:
+        doc_ids.append(row['id'])
+    return doc_ids
 
 # <codecell>
 
-population_size = len(doc_ids)
-sample_ids = []
-# NOTE: Each time this is run, a different sample set will be generated. Remember that notebooks cache results!
-for i in range(0, sample_size):
-    rand_index = random.randint(0, population_size - 1)
-    sample_ids.append(doc_ids[rand_index])
-print(sample_ids)
+def get_sample_ids(collection_ids, sample_size):
+    population_size = len(doc_ids)
+    sample_ids = set()
+    # NOTE: Each time this is run, a different sample set will be generated. Remember that notebooks cache results!
+    # It may also take more than sample_size loops, if collisions in random ids occur set will not grow
+    while len(sample_ids) <= sample_size:
+        rand_index = random.randint(0, population_size - 1)
+        sample_ids.add(doc_ids[rand_index])
+    return sample_ids
 
 # <codecell>
 
-# create new db for sample data
-db_name = sample_db_name_template.format(collection_id, datetime.date.today())
-sample_db = server.create(db_name)
+def create_samples_db(sourcedb, collection_id, sample_size=3):
+    collection_ids = get_collection_ids(sourcedb, collection_id)
+    sample_ids = get_sample_ids(collection_ids, sample_size)
+    sample_db = server.create(SAMPLE_DB_NAME_TEMPLATE.format(collection_id, datetime.date.today()))
+    for doc_id in sample_ids:
+        sample_db[doc_id] = sourcedb[doc_id]
+    return 'Created db {} with docs {}'.format(sample_db, sample_ids)
 
 # <codecell>
 
-for doc_id in sample_ids:
-    doc = cdb[doc_id]
-    sample_db[doc_id] = doc
+print(create_samples_db(cdb, '1678'))
+
+# <codecell>
+
+# Takes a while, big collections will be slow
+print(create_samples_db(cdb, '26094', sample_size=50))
 
 # <codecell>
 
