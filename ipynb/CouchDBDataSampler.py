@@ -7,11 +7,12 @@
 # =============================
 # 
 # This should provide a base for creating random samples of documents in a collection in Couch DB.
-# It will create a new db "collection_sample_<cid>_<date>" in couchdb for use in QA.
+# It will create a new db "samples_from_<cid>_<date>" in couchdb for use in QA.
 
 # <codecell>
 
 from __future__ import print_function
+import os
 import json
 import random
 import datetime
@@ -21,11 +22,13 @@ import couchdb
 
 collection_id = '1678' # NOTE: is a string, not a number though numeric data
 sample_size = 3
+sample_db_name_template = 'ucldc_samples_from_{}_{}'
 
 # <codecell>
 
 # NOTE: the calls below get the results from https://54.84.142.143/couchdb/ucldc/_design/all_provider_docs/_view/by_provider_name?key="1678"
 server = couchdb.Server()
+server.resource.credentials = ('admin', os.environ['COUCHDB_PASSWORD'])
 cdb = server['ucldc']
 v = cdb.view('all_provider_docs/by_provider_name',
              key=collection_id)
@@ -47,8 +50,14 @@ print(sample_ids)
 # <codecell>
 
 # create new db for sample data
-db_name = 'collection_sample_{}_{}'.format(collection_id, datetime.date.today())
+db_name = sample_db_name_template.format(collection_id, datetime.date.today())
 sample_db = server.create(db_name)
+
+# <codecell>
+
+for doc_id in sample_ids:
+    doc = cdb[doc_id]
+    sample_db[doc_id] = doc
 
 # <codecell>
 
