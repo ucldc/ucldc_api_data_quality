@@ -225,13 +225,27 @@ Run `pybot lapl-marc-testcase.html` to run tests.
         <td>grab data test</td>
         <td>${cdoc}</td>
         <td>Get Couch Doc</td>
-        <td>1916-preparedness-day-parade-bombing-1916-1933-pho--http://ark.cdlib.org/ark:/13030/tf0c6007xf</td>
+        <td>26094--00000001</td>
         <td></td>
     </tr>
     <tr>
         <td></td>
         <td>Log To Console</td>
-        <td>${cdoc['sourceResource']['title']}</td>
+        <td>===== CDOC -> ${cdoc['sourceResource'].keys()} from live data</td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>Log To Console</td>
+        <td>===== CDOC TITLE-> ${cdoc['sourceResource']['title']} from live data</td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>Log To Console</td>
+        <td>===== CDOC TEMPORAL-> ${cdoc['sourceResource']['temporal']} from live data</td>
         <td></td>
         <td></td>
     </tr>
