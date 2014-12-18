@@ -88,3 +88,6 @@ And using results from above, can find the problem documents:
 http://107.21.228.130:8080/solr/dc-collection/select?q=reference_image_md5%3A12daf1784ea44975a0bb170dbe58238b&rows=3&wt=json&indent=true&facet=true&facet.query=true&facet.field=reference_image_md5
 
 
+This will give unique values for a field in a given collection:
+
+https://registry.cdlib.org/solr/query?q=*:*&fq=collection:"https://registry.cdlib.org/api/v1/collection/26094"&rows=1&wt=json&indent=true&facet=true&facet.query=true&facet.field=description_ss
