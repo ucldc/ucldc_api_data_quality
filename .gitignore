@@ -1,3 +1,7 @@
+reporting/comp-qa
+reporting/prod-indexes-qa
+reporting/report.ini
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
