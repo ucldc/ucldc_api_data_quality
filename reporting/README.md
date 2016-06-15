@@ -46,6 +46,8 @@ git pull origin master
 
 The "calisphere" entry will be for the existing index to compare to, the "new-index" is the index being compared. You can actually compare any 2 solr indexes that have the Calisphere schema by changing these URLs.
 
+Now edit a file `report.ini` in the reporting directory:
+
 in `report.ini`:
 
 ```ini
