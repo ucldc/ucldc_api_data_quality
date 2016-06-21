@@ -25,41 +25,52 @@ base_query = {
     'fl': 'id,harvest_id_s',
 }
 
-def get_collection_solr_json(solr_url, collection_url, **kwargs):
-    q = base_query.copy().update({'collection_url':collection_url})
+def get_collection_solr_json(solr_url, collection_id, **kwargs):
+    q = base_query.copy()
+    collection_query = 'https://registry.cdlib.org/api/v1/collection/{}/'.format(collection_id) 
+    q.update({'q':'collection_url:"{}"'.format(collection_query)})
     return get_solr_json(solr_url, q, **kwargs)
 
 def main(argv=None):
     parser = argparse.ArgumentParser()
-    parser.add_argument('collection_url', nargs=1,)
+    parser.add_argument('collection_id', nargs=1,)
 
     if argv is None:
         argv = parser.parse_args()
-    collection_url = argv.collection_url[0]
+    collection_id = argv.collection_id[0]
     config = ConfigParser.SafeConfigParser()
     config.read('report.ini')
 
     #get calisphere current index data
     solr_url = config.get('calisphere', 'solrUrl')
     api_key = config.get('calisphere', 'solrAuth')
-    production_json = get_collection_solr_json(solr_url, collection_url,
+    production_json = get_collection_solr_json(solr_url, collection_id,
             api_key=api_key)
+    #print production_json
     prod_docs = production_json.get('response').get('docs')
     solr_url = config.get('new-index', 'solrUrl')
-    digest_user = config.get('new-index', 'digestUser')
-    digest_pswd = config.get('new-index', 'digestPswd')
-    new_json = get_collection_solr_json(solr_url, collection_url,
-            digest_user=digest_user, digest_pswd=digest_pswd)
+    api_key = config.get('new-index', 'solrAuth')
+    new_json = get_collection_solr_json(solr_url, collection_id,
+            api_key=api_key)
+    #print new_json
     new_docs = new_json.get('response').get('docs')
     prod_doc_set = set([ x['id'] for x in prod_docs])
     new_doc_set = set([x['id'] for x in new_docs])
     missing_doc_set = prod_doc_set.difference(new_doc_set)
+    new_objects_doc_set = new_doc_set.difference(prod_doc_set)
+    print "MISSING LEN:{}".format(len(missing_doc_set))
+    print "NEW DOCS LEN:{}".format(len(missing_doc_set))
     missing_docs = []
+    new_object_docs = []
     for sid in missing_doc_set:
         d = [ x for x in prod_docs if x['id'] == sid]
         missing_docs.append(d[0])
+    for sid in new_objects_doc_set:
+        d = [ x for x in new_docs if x['id'] == sid]
+        new_object_docs.append(d[0])
 
     pp(missing_docs)
+    pp(new_object_docs)
 
 
 if __name__ == "__main__":
