@@ -69,7 +69,9 @@ def main(argv=None):
         d = [ x for x in new_docs if x['id'] == sid]
         new_object_docs.append(d[0])
 
+    pp('MISSING IN NEW INDEX')
     pp(missing_docs)
+    pp('NEW DOCUMENTS IN NEW INDEX')
     pp(new_object_docs)
 
 
