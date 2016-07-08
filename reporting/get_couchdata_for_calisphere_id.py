@@ -5,6 +5,7 @@ import sys
 import argparse
 import urllib
 import ConfigParser
+import json
 import requests
 
 from get_solr_json import get_solr_json
@@ -14,7 +15,7 @@ url_couchdb = 'https://harvest-stg.cdlib.org/couchdb/ucldc/'
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
-def main(objid):
+def main(objid, save_solr_doc=False, save_couch_doc=False):
     config = ConfigParser.SafeConfigParser()
     config.read('report.ini')
     solr_url = config.get('stg-index', 'solrUrl')
@@ -23,10 +24,16 @@ def main(objid):
     query = { 'q': objid }
     resp = get_solr_json(solr_url, query, api_key=api_key)
     doc = resp['response']['docs'][0]
+    if save_solr_doc:
+        with open('solr_doc_{}.json'.format(objid.replace('/','-')), 'w') as foo:
+            json.dump(doc, foo)
 
     url_couch_doc=url_couchdb+urllib.quote(doc['harvest_id_s'], safe='')
 
     couch_doc = requests.get(url_couch_doc, verify=False).json()
+    if save_couch_doc:
+        with open('couch_doc_{}.json'.format(objid.replace('/','-')), 'w') as foo:
+            json.dump(doc, foo)
     print 
     print '==========================================================================='
     print 'Calisphere/Solr ID: {}'.format(objid)
@@ -39,8 +46,13 @@ def main(objid):
 if __name__=='__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('objid', nargs=1,)
+    parser.add_argument('--save_solr_doc', action='store_true',
+            help='Save the solr doc to solr_doc_<id>.json')
+    parser.add_argument('--save_couch_doc', action='store_true',
+            help='Save the couch doc to couch_doc_<id>.json')
     argv = parser.parse_args()
-    sys.exit(main(argv.objid[0]))
+    sys.exit(main(argv.objid[0], save_solr_doc=argv.save_solr_doc,
+            save_couch_doc=argv.save_couch_doc))
 
 
 # Copyright © 2016, Regents of the University of California
