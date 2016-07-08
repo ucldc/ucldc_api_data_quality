@@ -5,6 +5,9 @@ import requests
 from requests.auth import HTTPDigestAuth
 from collections import OrderedDict
 
+from requests.packages.urllib3.exceptions import InsecureRequestWarning
+requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
+
 def get_solr_json(solr_url,
         query,
         api_key=None,
