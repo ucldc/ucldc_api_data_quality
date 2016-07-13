@@ -53,7 +53,7 @@ def get_registry_collection_data():
             break
         colls.extend(objs)
         offset+=limit
-    ready_for_pub = [] 
+    ready_for_pub = []
     not_ready_for_pub = []
     all_collections_url_dict = {}
     for c in colls:
@@ -95,7 +95,7 @@ def compare_datasets(prod_facet_dict, new_facet_dict):
         else:
             new_more.append((coll, count_prod, count_new))
 
-    return not_in_new, not_in_prod, count_equal, new_less, new_more 
+    return not_in_new, not_in_prod, count_equal, new_less, new_more
 
 def create_totals_page(workbook, header_format, number_format,
         runtime, total_prod, total_new, type_ss_prod, type_ss_new):
@@ -226,7 +226,7 @@ def create_counts_collections_page(workbook, header_format, number_format,
 
 def create_registry_publication_report(workbook, header_format, number_format,
         runtime, missing_ready_for_pub, not_ready_for_pub):
-    '''Report any collections marked "ready for publication" that aren't in 
+    '''Report any collections marked "ready for publication" that aren't in
     new index & any the are NOT ready for publication that are in index
     '''
     pp("MISSING READY for PUB:{}".format(len(missing_ready_for_pub)))
@@ -273,7 +273,7 @@ def create_report_workbook(outdir, not_in_new, not_in_prod, count_equal,
     # next is New Count less (BAD)
     # next is New Count more (OK)
     today = datetime.date.today()
-    fileout = os.path.join(outdir, '{}-{}.xlsx'.format(today, 
+    fileout = os.path.join(outdir, '{}-{}.xlsx'.format(today,
                                             'production-to-new'))
     runtime = '{}'.format(time.ctime())
 
@@ -288,7 +288,7 @@ def create_report_workbook(outdir, not_in_new, not_in_prod, count_equal,
     #report totals
     create_totals_page(workbook, header_format, number_format,
         runtime, num_found_prod, num_found_new, type_ss_prod, type_ss_new)
-    
+
     # set up a worksheet for each page
     # Collections not in the new index (BAD)
     create_missing_collections_page(workbook, header_format, number_format,
@@ -321,6 +321,44 @@ def create_report_workbook(outdir, not_in_new, not_in_prod, count_equal,
                 not_ready_for_pub)
 
     return workbook
+
+def create_new_facet_values_sheet(facet, workbook, solr_url, api_key,
+        solr_url_new, api_key_new):
+    #report new values for the given facet
+    query = {
+        'facet': 'true',
+        'facet.field': [
+            facet,
+        ],
+        'rows': 0,
+        'facet.limit': -1, #give them all
+        'facet.sort': 'count',
+        'facet.mincount': 1,
+    }
+    production_json = get_solr_json(solr_url, query, api_key=api_key)
+    production_facet_dict = create_facet_dict(production_json, facet)
+    new_json = get_solr_json(solr_url_new, query, api_key=api_key_new)
+    new_facet_dict = create_facet_dict(new_json, facet)
+    not_in_new, not_in_prod, count_equal, new_less, new_more = compare_datasets(production_facet_dict, new_facet_dict)
+    print("{}: NOT IN PROD: {}  NOT_IN_NEW: {}".format(facet, len(not_in_prod),
+        len(not_in_new)))
+
+    page = workbook.add_worksheet('New {} Values'.format(facet))
+    header_format = workbook.add_format({'bold': True, })
+    number_format = workbook.add_format()
+    number_format.set_num_format('#,##0')
+    if not_in_prod > 0:
+        page.set_tab_color('red')
+        number_format.set_bg_color('red')
+    page.write(0, 0, 'New {} Values'.format(facet), header_format)
+    page.write(0, 1, 'Counts', header_format)
+    # width
+    page.set_column(0, 1, 25, )
+    row = 2
+    for value, count in not_in_prod:
+        page.write(row, 0, value)
+        page.write(row, 1, count, number_format)
+        row = row + 1
 
 def main(argv=None):
     parser = argparse.ArgumentParser()
@@ -389,42 +427,12 @@ def main(argv=None):
                             missing_ready_for_pub=missing_ready_for_pub,
                             not_ready_for_pub=not_ready_for_pub)
 
-    #check the "coverage_ss" facet differences, need to be added 
-    # to our coverage_lookup_table.csv if new values exist
-    cov_query = {
-        'facet': 'true',
-        'facet.field': [
-            'coverage_ss',
-        ],
-        'rows': 0,
-        'facet.limit': -1, #give them all
-        'facet.sort': 'count',
-        'facet.mincount': 1,
-    }
-    production_json = get_solr_json(solr_url, cov_query, api_key=api_key)
-    production_facet_dict = create_facet_dict(production_json, 'coverage_ss')
-    new_json = get_solr_json(solr_url_new, cov_query, api_key=api_key_new)
-    new_facet_dict = create_facet_dict(new_json, 'coverage_ss')
-    not_in_new, not_in_prod, count_equal, new_less, new_more = compare_datasets(production_facet_dict, new_facet_dict)
-    print("COVERAGE: NOT IN PROD: {}  NOT_IN_NEW: {}".format(not_in_prod,
-        not_in_new))
-    
-    page = workbook.add_worksheet('New Coverage Values')
-    header_format = workbook.add_format({'bold': True, })
-    number_format = workbook.add_format()
-    number_format.set_num_format('#,##0')
-    if not_in_prod > 0:
-        page.set_tab_color('red')
-        number_format.set_bg_color('red')
-    page.write(0, 0, 'New Coverage_ss Values', header_format)
-    page.write(0, 1, 'Counts', header_format)
-    # width
-    page.set_column(0, 1, 25, )
-    row = 2
-    for value, count in not_in_prod:
-        page.write(row, 0, value)
-        page.write(row, 1, count, number_format)
-        row = row + 1
+    create_new_facet_values_sheet('coverage_ss', workbook, solr_url, api_key,
+            solr_url_new, api_key_new)
+    create_new_facet_values_sheet('facet_decade', workbook, solr_url, api_key,
+            solr_url_new, api_key_new)
+    create_new_facet_values_sheet('rights_ss', workbook, solr_url, api_key,
+            solr_url_new, api_key_new)
 
     workbook.close()
 
