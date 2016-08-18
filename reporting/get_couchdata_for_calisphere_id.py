@@ -2,6 +2,7 @@
 # Use this to get data from the couchdb instance for a record from calisphere
 # defaults to the staging environment
 import sys
+import os.path
 import argparse
 import urllib
 import ConfigParser
@@ -10,6 +11,8 @@ import requests
 
 from get_solr_json import get_solr_json
 
+DIR_SCRIPT = os.path.abspath(os.path.split(__file__)[0])
+
 url_couchdb = 'https://harvest-stg.cdlib.org/couchdb/ucldc/'
 
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
@@ -17,7 +20,7 @@ requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
 def main(objid, save_solr_doc=False, save_couch_doc=False):
     config = ConfigParser.SafeConfigParser()
-    config.read('report.ini')
+    config.read(DIR_SCRIPT+'/report.ini')
     solr_url = config.get('stg-index', 'solrUrl')
     api_key = config.get('stg-index', 'solrAuth')
 
@@ -34,7 +37,7 @@ def main(objid, save_solr_doc=False, save_couch_doc=False):
     if save_couch_doc:
         with open('couch_doc_{}.json'.format(objid.replace('/','-')), 'w') as foo:
             json.dump(doc, foo)
-    print 
+    print
     print '==========================================================================='
     print 'Calisphere/Solr ID: {}'.format(objid)
     print 'CouchDB ID: {}'.format(doc['harvest_id_s'])
