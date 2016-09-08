@@ -1,3 +1,4 @@
+#! /usr/bin/env python
 # -*- coding: utf-8 -*-
 # Use this to get data from the couchdb instance for a record from calisphere
 # defaults to the staging environment
@@ -43,7 +44,8 @@ def main(objid, save_solr_doc=False, save_couch_doc=False):
     print 'CouchDB ID: {}'.format(doc['harvest_id_s'])
     print 'isShownAt: {}'.format(couch_doc['isShownAt'])
     print 'isShownBy: {}'.format(couch_doc.get('isShownBy', None))
-    print 'object?: {}'.format(couch_doc.get('object', None))
+    print 'object: {}'.format(couch_doc.get('object', None))
+    print 'preview: https://calisphere.org/clip/500x500/{}'.format(couch_doc.get('object', None))
     print '==========================================================================='
 
 if __name__=='__main__':
