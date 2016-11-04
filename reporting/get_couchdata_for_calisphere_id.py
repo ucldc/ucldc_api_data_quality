@@ -6,7 +6,7 @@ import sys
 import os.path
 import argparse
 import urllib
-import ConfigParser
+import configparser
 import json
 import requests
 
@@ -20,7 +20,7 @@ from requests.packages.urllib3.exceptions import InsecureRequestWarning
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
 def main(objid, save_solr_doc=False, save_couch_doc=False):
-    config = ConfigParser.SafeConfigParser()
+    config = configparser.ConfigParser()
     config.read(DIR_SCRIPT+'/report.ini')
     solr_url = config.get('stg-index', 'solrUrl')
     api_key = config.get('stg-index', 'solrAuth')
@@ -32,22 +32,23 @@ def main(objid, save_solr_doc=False, save_couch_doc=False):
         with open('solr_doc_{}.json'.format(objid.replace('/','-')), 'w') as foo:
             json.dump(doc, foo)
 
-    url_couch_doc=url_couchdb+urllib.quote(doc['harvest_id_s'], safe='')
+    url_couch_doc=url_couchdb+urllib.parse.quote(doc['harvest_id_s'], safe='')
 
     couch_doc = requests.get(url_couch_doc, verify=False).json()
     if save_couch_doc:
         with open('couch_doc_{}.json'.format(objid.replace('/','-')), 'w') as foo:
             json.dump(doc, foo)
-    print
-    print '==========================================================================='
-    print 'Calisphere/Solr ID: {}'.format(objid)
-    print 'CouchDB ID: {}'.format(doc['harvest_id_s'])
-    print 'isShownAt: {}'.format(couch_doc['isShownAt'])
-    print 'isShownBy: {}'.format(couch_doc.get('isShownBy', None))
-    print 'object: {}'.format(couch_doc.get('object', None))
-    print 'preview: https://calisphere.org/clip/500x500/{}'.format(couch_doc.get('object', None))
-    print '==========================================================================='
-
+    print()
+    print('===========================================================================')
+    print('Calisphere/Solr ID: {}'.format(objid))
+    print('CouchDB ID: {}'.format(doc['harvest_id_s']))
+    print('isShownAt: {}'.format(couch_doc['isShownAt']))
+    print('isShownBy: {}'.format(couch_doc.get('isShownBy', None)))
+    print('object: {}'.format(couch_doc.get('object', None)))
+    print('preview: '
+        'https://calisphere.org/clip/500x500/{}'.format(couch_doc.get('object',
+            None)))
+    print('===========================================================================')
 if __name__=='__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('objid', nargs=1,)

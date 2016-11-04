@@ -26,7 +26,7 @@ def get_solr_json(solr_url,
                                     headers=solr_auth,
                                     auth=digest_auth,
                                     params=query,
-                                    verify=False).content)
+                                    verify=False).text)
 
 def create_facet_dict(json_results, facet_field):
     '''Create a dictionary consisting of keys = facet_field_values, values =
