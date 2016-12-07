@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-""" for a given collection, identify records in first index that aren't 
+""" for a given collection, identify records in first index that aren't
 in the other.
 Meant to run based on results of the qa report
 """
@@ -27,7 +27,7 @@ base_query = {
 
 def get_collection_solr_json(solr_url, collection_id, **kwargs):
     q = base_query.copy()
-    collection_query = 'https://registry.cdlib.org/api/v1/collection/{}/'.format(collection_id) 
+    collection_query = 'https://registry.cdlib.org/api/v1/collection/{}/'.format(collection_id)
     q.update({'q':'collection_url:"{}"'.format(collection_query)})
     return get_solr_json(solr_url, q, **kwargs)
 
@@ -59,7 +59,8 @@ def main(argv=None):
     missing_doc_set = prod_doc_set.difference(new_doc_set)
     new_objects_doc_set = new_doc_set.difference(prod_doc_set)
     print "MISSING LEN:{}".format(len(missing_doc_set))
-    print "NEW DOCS LEN:{}".format(len(missing_doc_set))
+    print "NEW DOCS LEN:{}".format(len(new_docs))
+    print "OLD DOCS LEN:{}".format(len(prod_docs))
     missing_docs = []
     new_object_docs = []
     for sid in missing_doc_set:
