@@ -12,8 +12,13 @@ import json
 import csv
 import xlsxwriter
 import requests
+from requests.packages.urllib3.exceptions import InsecureRequestWarning
+requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 from pprint import pprint as pp
-import ConfigParser
+try:
+    import ConfigParser
+except:
+    import configparser as ConfigParser
 import time
 import datetime
 from get_solr_json import get_solr_json, create_facet_dict

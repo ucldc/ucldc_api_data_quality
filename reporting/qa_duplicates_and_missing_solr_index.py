@@ -4,9 +4,14 @@ import sys
 import argparse
 import datetime
 import time
-import ConfigParser
+try:
+    import ConfigParser
+except:
+    import configparser as ConfigParser
 import xlsxwriter
 from get_solr_json import get_solr_json, create_facet_dict
+from requests.packages.urllib3.exceptions import InsecureRequestWarning
+requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
 facet_query = { 'q': '*:*',
         'rows' : 0,
@@ -23,9 +28,9 @@ def get_facet_query(solr_url, field, **kwargs):
     solr_json = get_solr_json(solr_url=solr_url, query=query, **kwargs)
     return create_facet_dict(solr_json, field)
 
-def create_report_workbook(outdir): 
+def create_report_workbook(outdir):
     today = datetime.date.today()
-    fileout = os.path.join(outdir, '{}-{}.xlsx'.format(today, 
+    fileout = os.path.join(outdir, '{}-{}.xlsx'.format(today,
                                             FNAME))
     runtime = '{}'.format(time.ctime())
 
@@ -55,7 +60,7 @@ def main(solr_url='https://harvest-stg.cdlib.org/solr/dc-collection/query',
             'facet': 'true',
             'facet.field': 'collection_url'
             }
-        collection_urls = create_facet_dict(get_solr_json(solr_url, 
+        collection_urls = create_facet_dict(get_solr_json(solr_url,
                 query=query, api_key=api_key,
                 digest_user=digest_user, digest_pswd=digest_pswd),
                 'collection_url')
@@ -91,7 +96,7 @@ def main(solr_url='https://harvest-stg.cdlib.org/solr/dc-collection/query',
     field = 'url_item'
     create_missing_report(field, workbook, header_format)
     field = 'reference_image_md5'
-    create_missing_report(field, workbook, header_format, 
+    create_missing_report(field, workbook, header_format,
             add_query={'fq':'type_ss:image'})
 
 def create_missing_report(field, workbook, header_format, add_query=None):
@@ -106,7 +111,7 @@ def create_missing_report(field, workbook, header_format, add_query=None):
             }
     if add_query:
         query.update(add_query)
-    collection_urls = create_facet_dict(get_solr_json(solr_url, 
+    collection_urls = create_facet_dict(get_solr_json(solr_url,
                 query=query, api_key=api_key,
                 digest_user=digest_user, digest_pswd=digest_pswd),
                 'collection_url')
@@ -137,7 +142,7 @@ if __name__=='__main__':
     parser.add_argument('outdir', nargs=1, type=str)
 
     args = parser.parse_args()
-   
+
     solr_url = args.solr_url if args.solr_url else 'https://harvest-stg.cdlib.org/solr/dc-collection/query'
     digest_user = digest_pswd = None
     if not args.api_key and not args.digest_user:
