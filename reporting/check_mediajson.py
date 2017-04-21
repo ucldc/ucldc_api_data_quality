@@ -107,7 +107,6 @@ def get_missing_jp2000_docs(s3, solr_docs):
     uuid_sizes = get_jp2000_file_sizes(s3)
     problems = []
     for doc in solr_docs:
-        print('checking doc : {}'.format(doc['id']))
         if doc.get('type_ss') == ['text']:
             continue
         UUID = doc['id']
