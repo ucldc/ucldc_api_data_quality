@@ -1,10 +1,12 @@
 import sys
+import os
 try:
     import configparser
 except:
     import ConfigParser as configparser
 import logging
-import json
+# import json
+import datetime
 import argparse
 import csv
 import boto3
@@ -73,6 +75,7 @@ def missing_media_json(s3, solr_docs):
     missing_media = []
     count = 0
     bad_count = 0
+    media_json_keys = get_media_json_keys(s3)
     for row in solr_docs:
         count += 1
         bucket, folder, key = row['structmap_url'].rsplit('/', 2)
@@ -119,26 +122,28 @@ def get_missing_jp2000_docs(s3, solr_docs):
 
 def main(argv=None):
     parser = argparse.ArgumentParser()
-    parser.add_argument('--outdir', default='reports',
-            help='out directory for reports (defaults to reports)')
-    parser.add_argument('--inisection', default='new-index',
-            help='section of report.ini to get Solr server info')
+    parser.add_argument(
+        '--outdir',
+        default='reports',
+        help='out directory for reports (defaults to reports)')
+    parser.add_argument(
+        '--inisection',
+        default='new-index',
+        help='section of report.ini to get Solr server info')
 
     if argv is None:
         argv = parser.parse_args()
 
-    print('INI SECTOIN={}'.format(argv.inisection))
     config = configparser.SafeConfigParser()
     config.read('report.ini')
     solr_url = config.get(argv.inisection, 'solrUrl')
     api_key = config.get(argv.inisection, 'solrAuth')
     print('SOLR: {}'.format(solr_url))
     nuxeo_solr_docs = get_solr_docs(solr_url, api_key)
-    with open('structmap_urls.json', 'w') as foo:
-        json.dump(nuxeo_solr_docs, foo, indent=2)
+    #with open('nuxeo_solr_docs.json', 'w') as foo:
+    #    json.dump(nuxeo_solr_docs, foo, indent=2)
 
-    print('\n\n{} nuxeo objects in Solr\n\n'.format(
-        len(nuxeo_solr_docs)))
+    print('\n\n{} nuxeo objects in Solr\n\n'.format(len(nuxeo_solr_docs)))
 
     print('\n\nGet object list from S3\n\n')
     s3 = boto3.resource('s3')
@@ -150,12 +155,14 @@ def main(argv=None):
     missing_media_sorted = sorted(
         missing_media, key=lambda x: x['collection_url'])
 
-    print('{} missing media_json files'.format(
-        len(missing_media_sorted)))
-    with open('missing_media.json', 'w') as foo:
-        json.dump(missing_media_sorted, foo, indent=2)
+    print('{} missing media_json files'.format(len(missing_media_sorted)))
+    #with open('missing_media.json', 'w') as foo:
+    #    json.dump(missing_media_sorted, foo, indent=2)
 
-    with open('missing_media.csv', 'w') as csvfile:
+    today = datetime.date.today()
+    fileout = os.path.join(argv.outdir, '{}-{}-{}.csv'.format(
+        today, 'missing-media-json', argv.inisection))
+    with open(fileout, 'w') as csvfile:
         writer = csv.writer(csvfile)
         for obj in missing_media_sorted:
             writer.writerow((obj['collection_url'], obj['id'],
@@ -164,16 +171,18 @@ def main(argv=None):
     missing_jp2000 = get_missing_jp2000_docs(s3, nuxeo_solr_docs)
     missing_jp2000_sorted = sorted(
         missing_jp2000, key=lambda x: x['collection_url'])
-    print('{} missing jp2000 files'.format(
-        len(missing_media_sorted)))
-    with open('missing_jp2000.json', 'w') as foo:
-        json.dump(missing_jp2000_sorted, foo, indent=2)
-    with open('missing_jp2000.csv', 'w') as csvfile:
+    print('{} missing jp2000 files'.format(len(missing_media_sorted)))
+    #with open('missing_jp2000.json', 'w') as foo:
+    #    json.dump(missing_jp2000_sorted, foo, indent=2)
+    fileout = os.path.join(argv.outdir, '{}-{}-{}.csv'.format(
+        today, 'missing-jp2000', argv.inisection))
+    with open(fileout, 'w') as csvfile:
         writer = csv.writer(csvfile)
         for obj in missing_jp2000_sorted:
             writer.writerow(
                 (obj['collection_url'], obj['id'], obj['structmap_url'],
                  obj.get('type_ss'), obj['size']))
+
 
 if __name__ == "__main__":
     sh = logging.StreamHandler()
