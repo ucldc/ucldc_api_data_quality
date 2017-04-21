@@ -6,7 +6,6 @@ import os
 import sys
 import argparse
 import re
-from datetime import date
 import itertools
 import json
 import csv
