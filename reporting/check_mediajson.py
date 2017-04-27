@@ -74,16 +74,14 @@ def get_media_json_keys(s3):
 def missing_media_json(s3, solr_docs):
     missing_media = []
     count = 0
-    bad_count = 0
     media_json_keys = get_media_json_keys(s3)
     for row in solr_docs:
         count += 1
         bucket, folder, key = row['structmap_url'].rsplit('/', 2)
         s3key = '{}/{}'.format(folder, key)
         if s3key not in media_json_keys:
-            bad_count += 1
-            if (bad_count % 1000) == 0:
-                logger.info('{} bad so far'.format(bad_count))
+            if (len(missing_media) % 1000) == 0:
+                logger.info('{} bad so far'.format(len(missing_media))
             missing_media.append(row)
     return missing_media
 
@@ -107,7 +105,7 @@ def get_missing_jp2000_docs(s3, solr_docs):
     uuid_sizes = get_jp2000_file_sizes(s3)
     problems = []
     for doc in solr_docs:
-        if doc.get('type_ss') == ['text']:
+        if doc.get('type_ss') != ['image']:
             continue
         UUID = doc['id']
         if not uuid_sizes.get(UUID):
@@ -115,6 +113,8 @@ def get_missing_jp2000_docs(s3, solr_docs):
                 doc['size'] = -1
             else:
                 doc['size'] = uuid_sizes[UUID]
+            if (len(problems) % 1000) == 0:
+                logger.info('{} jp2000s bad so far'.format(len(problems)))
             problems.append(doc)
     return problems
 
@@ -170,7 +170,7 @@ def main(argv=None):
     missing_jp2000 = get_missing_jp2000_docs(s3, nuxeo_solr_docs)
     missing_jp2000_sorted = sorted(
         missing_jp2000, key=lambda x: x['collection_url'])
-    print('{} missing jp2000 files'.format(len(missing_media_sorted)))
+    print('{} missing jp2000 files'.format(len(missing_jp2000_sorted)))
     #with open('missing_jp2000.json', 'w') as foo:
     #    json.dump(missing_jp2000_sorted, foo, indent=2)
     fileout = os.path.join(argv.outdir, '{}-{}-{}.csv'.format(
