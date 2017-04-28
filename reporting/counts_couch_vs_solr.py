@@ -1,7 +1,10 @@
 # -*- coding: utf-8 -*-
 import os
 import argparse
-import ConfigParser
+try:
+    import configparser
+except:
+    import ConfigParser as configparser
 import datetime
 import csv
 from get_solr_json import get_solr_json, create_facet_dict
@@ -23,7 +26,7 @@ if __name__ == '__main__':
     parser.add_argument('outdir',)
     argv = parser.parse_args()
 
-    config = ConfigParser.SafeConfigParser()
+    config = configparser.SafeConfigParser()
     config.read('report.ini')
 
     solr_url = config.get('new-index', 'solrUrl')
@@ -51,7 +54,7 @@ if __name__ == '__main__':
                 couch_less.append((cid, count, couch_count))
             print "{} SOLR:{} COUCH:{}".format(cid, count, couch_count)
     print "FOR {} COLLECTIONS, {} have different counts".format(
-            len(solr_collection_facet), len(diffs))
+        len(solr_collection_facet), len(diffs))
     today = datetime.date.today()
     with open(os.path.join(argv.outdir, '{}-{}.csv'.format(today,
               'couch-solr-count-diffs')), 'w') as fileout:
@@ -62,7 +65,7 @@ if __name__ == '__main__':
     if couch_less:
         for c in couch_less:
             print "PROBLEM LESS COUCH - CID:{} SOLR:{} COUCH:{}".format(
-                    c[0], c[1], c[2])
+                c[0], c[1], c[2])
 
 # Copyright © 2016, Regents of the University of California
 # All rights reserved.

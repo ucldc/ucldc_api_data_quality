@@ -81,7 +81,7 @@ def missing_media_json(s3, solr_docs):
         s3key = '{}/{}'.format(folder, key)
         if s3key not in media_json_keys:
             if (len(missing_media) % 1000) == 0:
-                logger.info('{} bad so far'.format(len(missing_media))
+                logger.info('{} bad so far'.format(len(missing_media)))
             missing_media.append(row)
     return missing_media
 

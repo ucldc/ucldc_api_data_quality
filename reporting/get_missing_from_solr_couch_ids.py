@@ -1,15 +1,20 @@
 # -*- coding: utf-8 -*-
 import argparse
-import ConfigParser
-from get_solr_json import get_solr_json, create_facet_dict
+try:
+    import configparser
+except:
+    import ConfigParser as configparser
+from get_solr_json import get_solr_json
 import requests
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('collection_id')
-    parser.add_argument('outdir', nargs=1,)
+    parser.add_argument(
+        'outdir',
+        nargs=1, )
     argv = parser.parse_args()
-    config = ConfigParser.SafeConfigParser()
+    config = configparser.SafeConfigParser()
     config.read('report.ini')
 
     solr_url = config.get('new-index', 'solrUrl')
@@ -17,9 +22,9 @@ if __name__ == '__main__':
 
     couchdb_url = config.get('couchdb', 'url')
     cid = argv.collection_id
-    url_couchdb_collection_ids = '{}/couchdb/ucldc/_design/all_provider_docs/_view/by_provider_name?key="{}"'.format(couchdb_url,
-                cid)
-    print "URL:{}".format(url_couchdb_collection_ids)
+    url_couchdb_collection_ids = '{}/couchdb/ucldc/_design/all_provider_docs' \
+        '/_view/by_provider_name?key="{}"'.format(couchdb_url, cid)
+    print("URL:{}".format(url_couchdb_collection_ids))
     #may need to do paging here
     resp = requests.get(url_couchdb_collection_ids, verify=False)
     rows = resp.json()['rows']
@@ -34,7 +39,8 @@ if __name__ == '__main__':
         'sort': 'id asc',
         'fl': 'harvest_id_s',
         'q':
-        'collection_url:"https://registry.cdlib.org/api/v1/collection/{}/"'.format(cid),
+        'collection_url:"https://registry.cdlib.org/api/v1/collection/{}/"'.
+        format(cid),
         'cursorMark': '*'
     }
     solr_ids = []
@@ -44,15 +50,14 @@ if __name__ == '__main__':
         if not solr_docs:
             break
         solr_query['cursorMark'] = solr_json['nextCursorMark']
-        solr_ids.extend([ x['harvest_id_s'] for x in solr_docs])
+        solr_ids.extend([x['harvest_id_s'] for x in solr_docs])
 
     not_in_solr = []
     for couchid in couchdb_ids:
         if couchid not in solr_ids:
             not_in_solr.append(couchid)
 
-
-    print not_in_solr
+    print(not_in_solr)
 
 # Copyright © 2016, Regents of the University of California
 # All rights reserved.
@@ -77,4 +82,3 @@ if __name__ == '__main__':
 # CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
-

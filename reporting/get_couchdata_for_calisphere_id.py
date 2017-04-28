@@ -6,7 +6,15 @@ import sys
 import os.path
 import argparse
 import urllib
-import configparser
+try:
+    import configparser
+except:
+    import ConfigParser as configparser
+try:
+    import urllib.parse
+    url_quote = urllib.parse.quote
+except:
+    url_quote = urllib.quote
 import json
 import requests
 
@@ -19,47 +27,66 @@ url_couchdb = 'https://harvest-stg.cdlib.org/couchdb/ucldc/'
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
+
 def main(objid, save_solr_doc=False, save_couch_doc=False):
     config = configparser.ConfigParser()
-    config.read(DIR_SCRIPT+'/report.ini')
+    config.read(DIR_SCRIPT + '/report.ini')
     solr_url = config.get('stg-index', 'solrUrl')
     api_key = config.get('stg-index', 'solrAuth')
 
-    query = { 'q': objid }
+    query = {'q': objid}
     resp = get_solr_json(solr_url, query, api_key=api_key)
     doc = resp['response']['docs'][0]
     if save_solr_doc:
-        with open('solr_doc_{}.json'.format(objid.replace('/','-')), 'w') as foo:
+        with open('solr_doc_{}.json'.format(objid.replace('/', '-')),
+                  'w') as foo:
             json.dump(doc, foo)
 
-    url_couch_doc=url_couchdb+urllib.parse.quote(doc['harvest_id_s'], safe='')
+    url_couch_doc = url_couchdb + url_quote(doc['harvest_id_s'], safe='')
 
     couch_doc = requests.get(url_couch_doc, verify=False).json()
     if save_couch_doc:
-        with open('couch_doc_{}.json'.format(objid.replace('/','-')), 'w') as foo:
+        with open('couch_doc_{}.json'.format(objid.replace('/', '-')),
+                  'w') as foo:
             json.dump(doc, foo)
     print()
-    print('===========================================================================')
+    print(
+        '================================================='
+        '=========================='
+    )
     print('Calisphere/Solr ID: {}'.format(objid))
     print('CouchDB ID: {}'.format(doc['harvest_id_s']))
     print('isShownAt: {}'.format(couch_doc['isShownAt']))
     print('isShownBy: {}'.format(couch_doc.get('isShownBy', None)))
     print('object: {}'.format(couch_doc.get('object', None)))
     print('preview: '
-        'https://calisphere.org/clip/500x500/{}'.format(couch_doc.get('object',
-            None)))
-    print('===========================================================================')
-if __name__=='__main__':
-    parser = argparse.ArgumentParser()
-    parser.add_argument('objid', nargs=1,)
-    parser.add_argument('--save_solr_doc', action='store_true',
-            help='Save the solr doc to solr_doc_<id>.json')
-    parser.add_argument('--save_couch_doc', action='store_true',
-            help='Save the couch doc to couch_doc_<id>.json')
-    argv = parser.parse_args()
-    sys.exit(main(argv.objid[0], save_solr_doc=argv.save_solr_doc,
-            save_couch_doc=argv.save_couch_doc))
+          'https://calisphere.org/clip/500x500/{}'.format(
+              couch_doc.get('object', None)))
+    print(
+        '================================================='
+        '=========================='
+    )
 
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        'objid',
+        nargs=1, )
+    parser.add_argument(
+        '--save_solr_doc',
+        action='store_true',
+        help='Save the solr doc to solr_doc_<id>.json')
+    parser.add_argument(
+        '--save_couch_doc',
+        action='store_true',
+        help='Save the couch doc to couch_doc_<id>.json')
+    argv = parser.parse_args()
+    sys.exit(
+        main(
+            argv.objid[0],
+            save_solr_doc=argv.save_solr_doc,
+            save_couch_doc=argv.save_couch_doc))
 
 # Copyright © 2016, Regents of the University of California
 # All rights reserved.
@@ -84,4 +111,3 @@ if __name__=='__main__':
 # CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
-

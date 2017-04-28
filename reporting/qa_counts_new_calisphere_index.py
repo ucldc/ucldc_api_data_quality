@@ -5,19 +5,15 @@
 import os
 import sys
 import argparse
-import re
-import itertools
-import json
-import csv
 import xlsxwriter
 import requests
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 from pprint import pprint as pp
 try:
-    import ConfigParser
+    import configparser
 except:
-    import configparser as ConfigParser
+    import ConfigParser as configparser
 import time
 import datetime
 from get_solr_json import get_solr_json, create_facet_dict
@@ -26,17 +22,17 @@ URL_CALISPHERE_BASE_COLLECTION = 'https://calisphere.org/collections/'
 
 base_query = {
     'facet': 'true',
-    'facet.field': [
-        'collection_url',
-    ],
+    'facet.field': ['collection_url', ],
     'facet.missing': 'on',
     'rows': 0,
-    'facet.limit': -1, #give them all
+    'facet.limit': -1,  # give them all
 }
+
 
 def get_total_docs(json_results):
     '''Return total docs in the response'''
     return int(json_results.get('response').get('numFound'))
+
 
 def get_registry_collection_data():
     '''Return a dictionary of ready for publication collections data
@@ -45,18 +41,18 @@ def get_registry_collection_data():
 
     url_base = 'https://registry.cdlib.org'
     url_base_api = url_base + '/api/v1/collection/'
-    offset=0
-    limit=100
-    colls=[]
+    offset = 0
+    limit = 100
+    colls = []
     while 1:
-        url='{}?limit={}&offset={}'.format(url_base_api, limit, offset)
+        url = '{}?limit={}&offset={}'.format(url_base_api, limit, offset)
         objs = requests.get(url).json()['objects']
         for o in objs:
             o['url'] = u'{}{}'.format(url_base, o['resource_uri'])
         if not len(objs):
             break
         colls.extend(objs)
-        offset+=limit
+        offset += limit
     ready_for_pub = []
     not_ready_for_pub = []
     all_collections_url_dict = {}
@@ -68,6 +64,7 @@ def get_registry_collection_data():
             not_ready_for_pub.append(c)
     return all_collections_url_dict, ready_for_pub, not_ready_for_pub
 
+
 def compare_datasets(prod_facet_dict, new_facet_dict):
     '''This does the heavy lifting.
     First, find what collections are in prod but not new & vice versa.
@@ -78,10 +75,10 @@ def compare_datasets(prod_facet_dict, new_facet_dict):
     count_equal = []
     new_less = []
     new_more = []
-    prod_coll_set = set([ name for name, count in prod_facet_dict.items()])
-    new_coll_set = set([ name for name, count in new_facet_dict.items()])
-    pp('OLD SET LEN:{} NEW LEN:{}'.format(len(prod_coll_set),
-                                        len(new_coll_set)))
+    prod_coll_set = set([name for name, count in prod_facet_dict.items()])
+    new_coll_set = set([name for name, count in new_facet_dict.items()])
+    pp('OLD SET LEN:{} NEW LEN:{}'.format(
+        len(prod_coll_set), len(new_coll_set)))
     not_in_new_set = prod_coll_set.difference(new_coll_set)
     for coll in not_in_new_set:
         not_in_new.append((coll, prod_facet_dict[coll]))
@@ -101,8 +98,9 @@ def compare_datasets(prod_facet_dict, new_facet_dict):
 
     return not_in_new, not_in_prod, count_equal, new_less, new_more
 
-def create_totals_page(workbook, header_format, number_format,
-        runtime, total_prod, total_new, type_ss_prod, type_ss_new):
+
+def create_totals_page(workbook, header_format, number_format, runtime,
+                       total_prod, total_new, type_ss_prod, type_ss_new):
     '''For the 2 pages reporting collections missing from an index,
     create a page
     '''
@@ -122,8 +120,14 @@ def create_totals_page(workbook, header_format, number_format,
     page.write(0, 2, 'New Index', header_format)
     page.write(0, 3, 'Difference', header_format)
     # width
-    page.set_column(0, 0, 25, )
-    page.set_column(1, 3, 10, )
+    page.set_column(
+        0,
+        0,
+        25, )
+    page.set_column(
+        1,
+        3,
+        10, )
 
     #write total docs
     page.write(1, 0, 'Total Docs', header_format)
@@ -134,17 +138,24 @@ def create_totals_page(workbook, header_format, number_format,
     row = 3
     for key, val in type_ss_prod.items():
         new_val = type_ss_new.get(key, 0)
-        if key == None:
+        if key is None:
             key = 'None'
         page.write(row, 0, key, header_format)
         page.write(row, 1, val)
         page.write(row, 2, new_val)
-        page.write_formula(row, 3, '=C{0}-B{1}'.format(row+1, row+1))
+        page.write_formula(row, 3, '=C{0}-B{1}'.format(row + 1, row + 1))
         row = row + 1
     page.write(row, 4, runtime)
 
-def create_missing_collections_page(workbook, header_format, number_format,
-        runtime, page_name, data, all_collections, tab_color=None):
+
+def create_missing_collections_page(workbook,
+                                    header_format,
+                                    number_format,
+                                    runtime,
+                                    page_name,
+                                    data,
+                                    all_collections,
+                                    tab_color=None):
     '''For the 2 pages reporting collections missing from an index,
     create a page
     '''
@@ -164,11 +175,26 @@ def create_missing_collections_page(workbook, header_format, number_format,
     page.write(0, 4, 'Calisphere URL', header_format)
     page.write(0, 5, 'Institution', header_format)
     # width
-    page.set_column(0, 0, 40, )
-    page.set_column(1, 1, 43, )
-    page.set_column(2, 2, 10, )
-    page.set_column(4, 4, 40, )
-    page.set_column(5, 5, 50, )
+    page.set_column(
+        0,
+        0,
+        40, )
+    page.set_column(
+        1,
+        1,
+        43, )
+    page.set_column(
+        2,
+        2,
+        10, )
+    page.set_column(
+        4,
+        4,
+        40, )
+    page.set_column(
+        5,
+        5,
+        50, )
     row = 1
     for item in data:
         c_url = item[0]
@@ -190,8 +216,15 @@ def create_missing_collections_page(workbook, header_format, number_format,
     page.write_formula(row, 3, '=SUM(C2:C{})'.format(row))
     page.write(row, 4, runtime)
 
-def create_counts_collections_page(workbook, header_format, number_format,
-        runtime, page_name, data, all_collections, tab_color=None):
+
+def create_counts_collections_page(workbook,
+                                   header_format,
+                                   number_format,
+                                   runtime,
+                                   page_name,
+                                   data,
+                                   all_collections,
+                                   tab_color=None):
     '''For the pages reporting collections with differing counts in the index,
     create a page
     '''
@@ -210,11 +243,26 @@ def create_counts_collections_page(workbook, header_format, number_format,
     page.write(0, 3, 'New Count', header_format)
     page.write(0, 4, 'Difference', header_format)
     # width
-    page.set_column(0, 0, 40, )
-    page.set_column(1, 1, 43, )
-    page.set_column(2, 2, 10, )
-    page.set_column(3, 3, 10, )
-    page.set_column(4, 4, 10, )
+    page.set_column(
+        0,
+        0,
+        40, )
+    page.set_column(
+        1,
+        1,
+        43, )
+    page.set_column(
+        2,
+        2,
+        10, )
+    page.set_column(
+        3,
+        3,
+        10, )
+    page.set_column(
+        4,
+        4,
+        10, )
     row = 1
     for item in data:
         c_url = item[0]
@@ -223,13 +271,16 @@ def create_counts_collections_page(workbook, header_format, number_format,
         page.write(row, 1, c_name)
         page.write_number(row, 2, item[1], number_format)
         page.write_number(row, 3, item[2], number_format)
-        page.write_formula(row, 4, '=C{}-D{}'.format(row+1, row+1), sum_format)
+        page.write_formula(row, 4, '=C{}-D{}'.format(row + 1, row + 1),
+                           sum_format)
         row = row + 1
     page.write_formula(row, 5, '=SUM(E2:E{})'.format(row))
     page.write(row, 6, runtime)
 
+
 def create_registry_publication_report(workbook, header_format, number_format,
-        runtime, missing_ready_for_pub, not_ready_for_pub):
+                                       runtime, missing_ready_for_pub,
+                                       not_ready_for_pub):
     '''Report any collections marked "ready for publication" that aren't in
     new index & any the are NOT ready for publication that are in index
     '''
@@ -241,17 +292,29 @@ def create_registry_publication_report(workbook, header_format, number_format,
     page.write(0, 1, 'Collection', header_format)
     page.write(0, 2, 'Ready for Publication', header_format)
     page.write(0, 3, 'Index State', header_format)
-    page.set_column(0, 0, 40, )
-    page.set_column(1, 1, 43, )
-    page.set_column(2, 2, 20, )
-    page.set_column(3, 3, 10, )
+    page.set_column(
+        0,
+        0,
+        40, )
+    page.set_column(
+        1,
+        1,
+        43, )
+    page.set_column(
+        2,
+        2,
+        20, )
+    page.set_column(
+        3,
+        3,
+        10, )
     row = 1
     for c in missing_ready_for_pub:
         page.write(row, 0, c['url'])
         page.write(row, 1, c['name'])
         page.write(row, 2, c['ready_for_publication'])
         page.write(row, 3, 'MISSING')
-        row +=1
+        row += 1
     row += 3
     for c in not_ready_for_pub:
         page.write(row, 0, c['url'])
@@ -262,15 +325,11 @@ def create_registry_publication_report(workbook, header_format, number_format,
     row += 2
     page.write(row, 6, runtime)
 
+
 def create_report_workbook(outdir, not_in_new, not_in_prod, count_equal,
-                            new_less, new_more,
-                            num_found_prod,
-                            num_found_new,
-                            type_ss_prod,
-                            type_ss_new,
-                            all_collections,
-                            missing_ready_for_pub,
-                            not_ready_for_pub):
+                           new_less, new_more, num_found_prod, num_found_new,
+                           type_ss_prod, type_ss_new, all_collections,
+                           missing_ready_for_pub, not_ready_for_pub):
     # now create a workbook, page one is In production but missing in new (BAD)
     # next is In new but not production (OK)
     # next is Equal Count (OK)
@@ -278,7 +337,7 @@ def create_report_workbook(outdir, not_in_new, not_in_prod, count_equal,
     # next is New Count more (OK)
     today = datetime.date.today()
     fileout = os.path.join(outdir, '{}-{}.xlsx'.format(today,
-                                            'production-to-new'))
+                                                       'production-to-new'))
     runtime = '{}'.format(time.ctime())
 
     # open the workbook
@@ -290,52 +349,82 @@ def create_report_workbook(outdir, not_in_new, not_in_prod, count_equal,
     number_format.set_num_format('#,##0')
 
     #report totals
-    create_totals_page(workbook, header_format, number_format,
-        runtime, num_found_prod, num_found_new, type_ss_prod, type_ss_new)
+    create_totals_page(workbook, header_format, number_format, runtime,
+                       num_found_prod, num_found_new, type_ss_prod,
+                       type_ss_new)
 
     # set up a worksheet for each page
     # Collections not in the new index (BAD)
-    create_missing_collections_page(workbook, header_format, number_format,
-        runtime, 'Collections not in New Index', not_in_new, all_collections,
+    create_missing_collections_page(
+        workbook,
+        header_format,
+        number_format,
+        runtime,
+        'Collections not in New Index',
+        not_in_new,
+        all_collections,
         tab_color='red')
 
     # Collections with PRODUCTION COUNT GREATER (BAD!!!)
-    create_counts_collections_page(workbook, header_format, number_format,
-        runtime, 'PRODUCTION count GREATER', new_less, all_collections,
+    create_counts_collections_page(
+        workbook,
+        header_format,
+        number_format,
+        runtime,
+        'PRODUCTION count GREATER',
+        new_less,
+        all_collections,
         tab_color='red')
 
     # Collection not in current production (OK)
-    create_missing_collections_page(workbook, header_format, number_format,
-        runtime, 'Collections not in Production', not_in_prod, all_collections,
+    create_missing_collections_page(
+        workbook,
+        header_format,
+        number_format,
+        runtime,
+        'Collections not in Production',
+        not_in_prod,
+        all_collections,
         tab_color='yellow')
 
     # Collections with NEW COUNT GREATER (OK)
-    create_counts_collections_page(workbook, header_format, number_format,
-        runtime, 'New count greater', new_more, all_collections,
+    create_counts_collections_page(
+        workbook,
+        header_format,
+        number_format,
+        runtime,
+        'New count greater',
+        new_more,
+        all_collections,
         tab_color='yellow')
 
     # Collections with equal counts in both indexes (prod first)
-    create_counts_collections_page(workbook, header_format, number_format,
-        runtime, 'Index count EQUAL', count_equal, all_collections,
+    create_counts_collections_page(
+        workbook,
+        header_format,
+        number_format,
+        runtime,
+        'Index count EQUAL',
+        count_equal,
+        all_collections,
         tab_color='green')
 
     if missing_ready_for_pub or not_ready_for_pub:
-        create_registry_publication_report(workbook, header_format,
-                number_format, runtime, missing_ready_for_pub,
-                not_ready_for_pub)
+        create_registry_publication_report(
+            workbook, header_format, number_format, runtime,
+            missing_ready_for_pub, not_ready_for_pub)
 
     return workbook
 
+
 def create_new_facet_values_sheet(facet, workbook, solr_url, api_key,
-        solr_url_new, api_key_new):
+                                  solr_url_new, api_key_new):
     #report new values for the given facet
     query = {
         'facet': 'true',
-        'facet.field': [
-            facet,
-        ],
+        'facet.field': [facet, ],
         'rows': 0,
-        'facet.limit': -1, #give them all
+        'facet.limit': -1,  # give them all
         'facet.sort': 'count',
         'facet.mincount': 1,
     }
@@ -343,9 +432,10 @@ def create_new_facet_values_sheet(facet, workbook, solr_url, api_key,
     production_facet_dict = create_facet_dict(production_json, facet)
     new_json = get_solr_json(solr_url_new, query, api_key=api_key_new)
     new_facet_dict = create_facet_dict(new_json, facet)
-    not_in_new, not_in_prod, count_equal, new_less, new_more = compare_datasets(production_facet_dict, new_facet_dict)
-    print("{}: NOT IN PROD: {}  NOT_IN_NEW: {}".format(facet, len(not_in_prod),
-        len(not_in_new)))
+    not_in_new, not_in_prod, count_equal, new_less, new_more = \
+        compare_datasets(production_facet_dict, new_facet_dict)
+    print("{}: NOT IN PROD: {}  NOT_IN_NEW: {}".format(
+        facet, len(not_in_prod), len(not_in_new)))
 
     page = workbook.add_worksheet('New {} Values'.format(facet))
     header_format = workbook.add_format({'bold': True, })
@@ -357,22 +447,27 @@ def create_new_facet_values_sheet(facet, workbook, solr_url, api_key,
     page.write(0, 0, 'New {} Values'.format(facet), header_format)
     page.write(0, 1, 'Counts', header_format)
     # width
-    page.set_column(0, 1, 25, )
+    page.set_column(
+        0,
+        1,
+        25, )
     row = 2
     for value, count in not_in_prod:
         page.write(row, 0, value)
         page.write(row, 1, count, number_format)
         row = row + 1
 
+
 def main(argv=None):
     parser = argparse.ArgumentParser()
-    parser.add_argument('outdir', nargs=1,)
+    parser.add_argument(
+        'outdir',
+        nargs=1, )
 
     if argv is None:
         argv = parser.parse_args()
 
-    today = datetime.date.today()
-    config = ConfigParser.SafeConfigParser()
+    config = configparser.SafeConfigParser()
     config.read('report.ini')
 
     #get totals for reporting on first page
@@ -390,59 +485,66 @@ def main(argv=None):
     api_key = config.get('calisphere', 'solrAuth')
     production_totals = get_solr_json(solr_url, query_t, api_key=api_key)
     num_prod_docs = get_total_docs(production_totals)
-    production_type_ss_dict = create_facet_dict(production_totals,
-                                                'type_ss')
+    production_type_ss_dict = create_facet_dict(production_totals, 'type_ss')
     solr_url_new = config.get('new-index', 'solrUrl')
     api_key_new = config.get('new-index', 'solrAuth')
     new_totals = get_solr_json(solr_url_new, query_t, api_key=api_key_new)
     num_new_docs = get_total_docs(new_totals)
-    new_type_ss_dict = create_facet_dict(new_totals,
-                                        'type_ss')
+    new_type_ss_dict = create_facet_dict(new_totals, 'type_ss')
 
     #get calisphere current index data
     production_json = get_solr_json(solr_url, base_query, api_key=api_key)
     production_facet_dict = create_facet_dict(production_json,
-                                                'collection_url')
+                                              'collection_url')
     new_json = get_solr_json(solr_url_new, base_query, api_key=api_key_new)
-    new_facet_dict = create_facet_dict(new_json,
-                                        'collection_url')
-    pp('OLD LEN:{} NEW LEN:{}'.format(len(production_facet_dict),
-                                        len(new_facet_dict)))
-
-    not_in_new, not_in_prod, count_equal, new_less, new_more = compare_datasets(production_facet_dict, new_facet_dict)
-    all_collections, ready_for_pub, not_ready_for_pub = get_registry_collection_data()
-    pp("READY FOR PUB:{} NOT READY:{}".format(len(ready_for_pub),
-        len(not_ready_for_pub)))
-    missing_ready_for_pub = [c for c in ready_for_pub if c['url'] not in new_facet_dict]
-    not_ready_for_pub = [c for c in not_ready_for_pub if c['url'] in new_facet_dict]
+    new_facet_dict = create_facet_dict(new_json, 'collection_url')
+    pp('OLD LEN:{} NEW LEN:{}'.format(
+        len(production_facet_dict), len(new_facet_dict)))
+    not_in_new, not_in_prod, count_equal, new_less, new_more = \
+        compare_datasets(production_facet_dict, new_facet_dict)
+    all_collections, ready_for_pub, not_ready_for_pub = \
+        get_registry_collection_data()
+    pp("READY FOR PUB:{} NOT READY:{}".format(
+        len(ready_for_pub), len(not_ready_for_pub)))
+    missing_ready_for_pub = [
+        c for c in ready_for_pub if c['url'] not in new_facet_dict
+    ]
+    not_ready_for_pub = [
+        c for c in not_ready_for_pub if c['url'] in new_facet_dict
+    ]
 
     pp('NOT IN NEW INDEX {}'.format(len(not_in_new)))
     pp('NOT IN PROD INDEX {}'.format(len(not_in_prod)))
     pp('COUNT EQUAL {}'.format(len(count_equal)))
     pp('NEW LESS {}'.format(len(new_less)))
     pp('NEW MORE {}'.format(len(new_more)))
-    workbook = create_report_workbook(argv.outdir[0], not_in_new, not_in_prod, count_equal,
-                            new_less, new_more,
-                            num_found_prod=num_prod_docs,
-                            num_found_new=num_new_docs,
-                            type_ss_prod=production_type_ss_dict,
-                            type_ss_new=new_type_ss_dict,
-                            all_collections=all_collections,
-                            missing_ready_for_pub=missing_ready_for_pub,
-                            not_ready_for_pub=not_ready_for_pub)
+    workbook = create_report_workbook(
+        argv.outdir[0],
+        not_in_new,
+        not_in_prod,
+        count_equal,
+        new_less,
+        new_more,
+        num_found_prod=num_prod_docs,
+        num_found_new=num_new_docs,
+        type_ss_prod=production_type_ss_dict,
+        type_ss_new=new_type_ss_dict,
+        all_collections=all_collections,
+        missing_ready_for_pub=missing_ready_for_pub,
+        not_ready_for_pub=not_ready_for_pub)
 
     create_new_facet_values_sheet('coverage_ss', workbook, solr_url, api_key,
-            solr_url_new, api_key_new)
+                                  solr_url_new, api_key_new)
     create_new_facet_values_sheet('facet_decade', workbook, solr_url, api_key,
-            solr_url_new, api_key_new)
+                                  solr_url_new, api_key_new)
     create_new_facet_values_sheet('rights_ss', workbook, solr_url, api_key,
-            solr_url_new, api_key_new)
+                                  solr_url_new, api_key_new)
 
     workbook.close()
 
+
 if __name__ == "__main__":
     sys.exit(main())
-
 """
 Copyright © 2016, Regents of the University of California
 All rights reserved.

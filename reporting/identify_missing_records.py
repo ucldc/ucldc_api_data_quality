@@ -7,54 +7,53 @@ Meant to run based on results of the qa report
 
 import sys
 import argparse
-import re
-from datetime import date
-import itertools
-import json
-import xlsxwriter
-import requests
 from pprint import pprint as pp
-import ConfigParser
-import time
-import datetime
-import os
+try:
+    import configparser
+except:
+    import ConfigParser as configparser
 from get_solr_json import get_solr_json
 
 base_query = {
-    'rows': 1000000, # get all rows
+    'rows': 1000000,  # get all rows
     'fl': 'id,harvest_id_s',
 }
 
+
 def get_collection_solr_json(solr_url, collection_id, **kwargs):
     q = base_query.copy()
-    collection_query = 'https://registry.cdlib.org/api/v1/collection/{}/'.format(collection_id)
-    q.update({'q':'collection_url:"{}"'.format(collection_query)})
+    collection_query = 'https://registry.cdlib.org/api/v1/' \
+        'collection/{}/'.format(collection_id)
+    q.update({'q': 'collection_url:"{}"'.format(collection_query)})
     return get_solr_json(solr_url, q, **kwargs)
+
 
 def main(argv=None):
     parser = argparse.ArgumentParser()
-    parser.add_argument('collection_id', nargs=1,)
+    parser.add_argument(
+        'collection_id',
+        nargs=1, )
 
     if argv is None:
         argv = parser.parse_args()
     collection_id = argv.collection_id[0]
-    config = ConfigParser.SafeConfigParser()
+    config = configparser.SafeConfigParser()
     config.read('report.ini')
 
     #get calisphere current index data
     solr_url = config.get('calisphere', 'solrUrl')
     api_key = config.get('calisphere', 'solrAuth')
-    production_json = get_collection_solr_json(solr_url, collection_id,
-            api_key=api_key)
+    production_json = get_collection_solr_json(
+        solr_url, collection_id, api_key=api_key)
     #print production_json
     prod_docs = production_json.get('response').get('docs')
     solr_url = config.get('new-index', 'solrUrl')
     api_key = config.get('new-index', 'solrAuth')
-    new_json = get_collection_solr_json(solr_url, collection_id,
-            api_key=api_key)
+    new_json = get_collection_solr_json(
+        solr_url, collection_id, api_key=api_key)
     #print new_json
     new_docs = new_json.get('response').get('docs')
-    prod_doc_set = set([ x['id'] for x in prod_docs])
+    prod_doc_set = set([x['id'] for x in prod_docs])
     new_doc_set = set([x['id'] for x in new_docs])
     missing_doc_set = prod_doc_set.difference(new_doc_set)
     new_objects_doc_set = new_doc_set.difference(prod_doc_set)
@@ -64,10 +63,10 @@ def main(argv=None):
     missing_docs = []
     new_object_docs = []
     for sid in missing_doc_set:
-        d = [ x for x in prod_docs if x['id'] == sid]
+        d = [x for x in prod_docs if x['id'] == sid]
         missing_docs.append(d[0])
     for sid in new_objects_doc_set:
-        d = [ x for x in new_docs if x['id'] == sid]
+        d = [x for x in new_docs if x['id'] == sid]
         new_object_docs.append(d[0])
 
     pp('MISSING IN NEW INDEX')
@@ -78,7 +77,6 @@ def main(argv=None):
 
 if __name__ == "__main__":
     sys.exit(main())
-
 """
 Copyright © 2016, Regents of the University of California
 All rights reserved.
