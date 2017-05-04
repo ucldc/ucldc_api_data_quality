@@ -80,6 +80,10 @@ python qa_duplicates_and_missing_solr_index.py {{ out directory }}
 
 Will create a spreadsheets in the `{{ out directory }}` named YYYY-MM-DD-duplicates_and_missing_fields.xlsx
 
+```shell
+python check_mediajson.py --outdir={{ out directory }}
+```
+Will create 2 csv files in the `{{ out directory }}` named YYYY-MM-DD-missing-media-json-new-index.csv and YYYY-MM-DD-missing-jp2000-new-index.csv
 
 # Tool for finding CouchDB data from Calisphere ID
 
