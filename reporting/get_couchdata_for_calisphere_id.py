@@ -62,6 +62,9 @@ def main(objid, save_solr_doc=False, save_couch_doc=False):
     print('preview: '
           'https://calisphere.org/clip/500x500/{}'.format(
               couch_doc.get('object', None)))
+    print('s3 object: '
+          'https://s3.amazonaws.com/static.ucldc.cdlib.org'
+          '/harvested_images/{}'.format(couch_doc.get('object', None)))
     print(
         '================================================='
         '=========================='
