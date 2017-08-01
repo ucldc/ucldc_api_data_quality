@@ -56,6 +56,9 @@ def main(objid, save_solr_doc=False, save_couch_doc=False):
     )
     print('Calisphere/Solr ID: {}'.format(objid))
     print('CouchDB ID: {}'.format(doc['harvest_id_s']))
+    print('CouchDB URL: {0}{1}'.format(
+        url_couchdb,
+        url_quote(doc['harvest_id_s'], safe='')))
     print('isShownAt: {}'.format(couch_doc['isShownAt']))
     print('isShownBy: {}'.format(couch_doc.get('isShownBy', None)))
     print('object: {}'.format(couch_doc.get('object', None)))
