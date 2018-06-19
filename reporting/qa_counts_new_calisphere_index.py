@@ -441,7 +441,7 @@ def create_new_facet_values_sheet(facet, workbook, solr_url, api_key,
     header_format = workbook.add_format({'bold': True, })
     number_format = workbook.add_format()
     number_format.set_num_format('#,##0')
-    if not_in_prod > 0:
+    if len(not_in_prod) > 0:
         page.set_tab_color('red')
         number_format.set_bg_color('red')
     page.write(0, 0, 'New {} Values'.format(facet), header_format)
