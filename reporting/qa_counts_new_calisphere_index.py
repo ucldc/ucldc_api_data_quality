@@ -457,6 +457,88 @@ def create_new_facet_values_sheet(facet, workbook, solr_url, api_key,
         page.write(row, 1, count, number_format)
         row = row + 1
 
+def missing_exhibit_items(exhibits, solr_url, api_key):
+    missing = []
+    for exhibit in exhibits:
+        item_id_search_term = ''
+        item_ids = []
+        for exhibit_item in exhibit['items']:
+            item_id_search_term += 'id:"{0}" OR '.format(exhibit_item['item_id'])
+            item_ids.append(exhibit_item['item_id'])
+
+        query = {
+            'q': item_id_search_term[:-4],
+            'fl': 'id',
+            'rows': len(exhibit['items']),
+            'facet': 'false'
+        }
+        solr_search = get_solr_json(solr_url, query, api_key=api_key)
+        solr_item_ids = map(lambda item: item['id'], solr_search['response']['docs'])
+
+        item_ids_not_in_solr = set(item_ids).difference(set(solr_item_ids))
+        if len(item_ids_not_in_solr) > 0:
+            for item_id in item_ids_not_in_solr:
+                exhibit_item = filter(lambda item: item['item_id'] == item_id, exhibit['items'])[0]
+                if exhibit_item['custom_crop'] and exhibit_item['custom_metadata'] and exhibit_item['custom_title']:
+                    item_ids_not_in_solr = item_ids_not_in_solr.difference(set([item_id]))
+            if len(item_ids_not_in_solr) > 0:
+                missing.append({
+                    'title': exhibit['title'],
+                    'url': exhibit['url'],
+                    'difference': list(item_ids_not_in_solr)
+                })
+    return missing
+
+
+def create_missing_exhibit_items_sheet(workbook, solr_url, api_key,
+                                       solr_url_new, api_key_new):
+    #report missing exhibit items
+    url = 'https://calisphere.org/exhibitions/exhibitReport/'
+    try:
+        exhibits = requests.get(url).json()['exhibits']
+    except:
+        Return
+
+    missing_prod = missing_exhibit_items(exhibits, solr_url, api_key)
+    missing_new = missing_exhibit_items(exhibits, solr_url_new, api_key_new)
+
+    page = workbook.add_worksheet('Missing Exhibit Items')
+    header_format = workbook.add_format({'bold': True, })
+    number_format = workbook.add_format()
+    number_format.set_num_format('#,##0')
+
+    sum_format = number_format
+    # headers
+    page.write(0, 0, 'Exhibit Title', header_format)
+    page.write(0, 1, 'Exhibit URL', header_format)
+    page.write(0, 2, 'Item Id', header_format)
+    # width
+    page.set_column(0,0,100,)
+    page.set_column(1,1,50,)
+    page.set_column(2,2,40,)
+
+    row = 1
+    page.write(row, 0, "Missing in Production:", header_format)
+    row = row + 1
+
+    for exhibit in missing_prod:
+        page.write(row, 0, exhibit['title'])
+        page.write(row, 1, "https://calisphere.org" + exhibit['url'])
+
+        for item in exhibit['difference']:
+            page.write(row, 2, item)
+            row = row + 1
+
+    row = row + 1
+    page.write(row, 0, "Missing in New:", header_format)
+    row = row + 1
+    for exhibit in missing_new:
+        page.write(row, 0, exhibit['title'])
+        page.write(row, 1, "https://calisphere.org" + exhibit['url'])
+
+        for item in exhibit['difference']:
+            page.write(row, 2, item)
+            row = row + 1
 
 def main(argv=None):
     parser = argparse.ArgumentParser()
@@ -532,6 +614,9 @@ def main(argv=None):
         all_collections=all_collections,
         missing_ready_for_pub=missing_ready_for_pub,
         not_ready_for_pub=not_ready_for_pub)
+
+    create_missing_exhibit_items_sheet(workbook, solr_url, api_key,
+                                   solr_url_new, api_key_new)
 
     create_new_facet_values_sheet('coverage_ss', workbook, solr_url, api_key,
                                   solr_url_new, api_key_new)
