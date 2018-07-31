@@ -476,17 +476,41 @@ def missing_exhibit_items(exhibits, solr_url, api_key):
         solr_item_ids = map(lambda item: item['id'], solr_search['response']['docs'])
 
         item_ids_not_in_solr = set(item_ids).difference(set(solr_item_ids))
+        items_without_data = []
+        items_not_pub_with_data = []
         if len(item_ids_not_in_solr) > 0:
             for item_id in item_ids_not_in_solr:
                 exhibit_item = filter(lambda item: item['item_id'] == item_id, exhibit['items'])[0]
-                if exhibit_item['custom_crop'] and exhibit_item['custom_metadata'] and exhibit_item['custom_title']:
-                    item_ids_not_in_solr = item_ids_not_in_solr.difference(set([item_id]))
-            if len(item_ids_not_in_solr) > 0:
-                missing.append({
-                    'title': exhibit['title'],
-                    'url': exhibit['url'],
-                    'difference': list(item_ids_not_in_solr)
+                if (not exhibit_item['custom_crop'] and
+                        not exhibit_item['custom_metadata'] and
+                        not exhibit_item['custom_title']):
+                    items_without_data.append({
+                        'item_id': item_id,
+                        'published': exhibit_item['published'],
+                        'solr': False
+                    })
+
+        items_not_published = filter(lambda item: not item['published'], exhibit['items'])
+        item_ids_not_published = map(lambda item: item['item_id'], items_not_published)
+        items_not_pub_not_data = filter(lambda item: not item['published'], items_without_data)
+        item_ids_not_pub_not_data = map(lambda item: item['item_id'], items_not_pub_not_data)
+        item_ids_not_pub_with_data = set(item_ids_not_published).difference(set(item_ids_not_pub_not_data))
+        if len(item_ids_not_pub_with_data) > 0:
+            for item_id in item_ids_not_pub_with_data:
+                items_not_pub_with_data.append({
+                    'item_id': item_id,
+                    'published': False,
+                    'solr': True
                 })
+
+        if len(items_without_data) > 0 or len(items_not_pub_with_data) > 0:
+            o = {
+                'title': exhibit['title'],
+                'url': exhibit['url'],
+                'difference': items_without_data + items_not_pub_with_data
+            }
+            missing.append(o)
+
     return missing
 
 
@@ -497,25 +521,29 @@ def create_missing_exhibit_items_sheet(workbook, solr_url, api_key,
     try:
         exhibits = requests.get(url).json()['exhibits']
     except:
-        Return
+        return
 
     missing_prod = missing_exhibit_items(exhibits, solr_url, api_key)
     missing_new = missing_exhibit_items(exhibits, solr_url_new, api_key_new)
 
     page = workbook.add_worksheet('Missing Exhibit Items')
     header_format = workbook.add_format({'bold': True, })
-    number_format = workbook.add_format()
-    number_format.set_num_format('#,##0')
+    red_format = workbook.add_format({'bg_color': 'red'})
+    yellow_format = workbook.add_format({'bg_color': 'yellow'})
+    green_format = workbook.add_format({'bg_color': 'green'})
 
-    sum_format = number_format
     # headers
     page.write(0, 0, 'Exhibit Title', header_format)
     page.write(0, 1, 'Exhibit URL', header_format)
     page.write(0, 2, 'Item Id', header_format)
+    page.write(0, 3, 'Published?', header_format)
+    page.write(0, 4, 'In Solr?', header_format)
     # width
-    page.set_column(0,0,100,)
-    page.set_column(1,1,50,)
-    page.set_column(2,2,40,)
+    page.set_column(0,0,80,)
+    page.set_column(1,1,65,)
+    page.set_column(2,2,35,)
+    page.set_column(3,3,10,)
+    page.set_column(4,4,10,)
 
     row = 1
     page.write(row, 0, "Missing in Production:", header_format)
@@ -526,7 +554,18 @@ def create_missing_exhibit_items_sheet(workbook, solr_url, api_key,
         page.write(row, 1, "https://calisphere.org" + exhibit['url'])
 
         for item in exhibit['difference']:
-            page.write(row, 2, item)
+            if item['published']:
+                page.write(row, 2, item['item_id'], red_format)
+                page.write(row, 3, item['published'], red_format)
+                page.write(row, 4, item['solr'], red_format)
+            elif not item['published'] and item['solr']:
+                page.write(row, 2, item['item_id'], yellow_format)
+                page.write(row, 3, item['published'], yellow_format)
+                page.write(row, 4, item['solr'], yellow_format)
+            else:
+                page.write(row, 2, item['item_id'], green_format)
+                page.write(row, 3, item['published'], green_format)
+                page.write(row, 4, item['solr'], green_format)
             row = row + 1
 
     row = row + 1
@@ -537,7 +576,18 @@ def create_missing_exhibit_items_sheet(workbook, solr_url, api_key,
         page.write(row, 1, "https://calisphere.org" + exhibit['url'])
 
         for item in exhibit['difference']:
-            page.write(row, 2, item)
+            if item['published']:
+                page.write(row, 2, item['item_id'], red_format)
+                page.write(row, 3, item['published'], red_format)
+                page.write(row, 4, item['solr'], red_format)
+            elif not item['published'] and item['solr']:
+                page.write(row, 2, item['item_id'], yellow_format)
+                page.write(row, 3, item['published'], yellow_format)
+                page.write(row, 4, item['solr'], yellow_format)
+            else:
+                page.write(row, 2, item['item_id'], green_format)
+                page.write(row, 3, item['published'], green_format)
+                page.write(row, 4, item['published'], green_format)
             row = row + 1
 
 def main(argv=None):
