@@ -9,7 +9,7 @@ It's probably best to make a `virtualenv` though not necessary.
 
 Then 
 
-	git clone https://github.com/mredar/ucldc_api_data_quality.git
+	git clone https://github.com/ucldc/ucldc_api_data_quality.git
 	cd ucldc_api_data_quality/reporting
 	# mkvirtualenv if you want
 	pip install -r requirements.txt
@@ -25,7 +25,7 @@ only do this once
 ```dos
 conda create -n myenv python
 activate myenv
-git clone https://github.com/mredar/ucldc_api_data_quality.git
+git clone https://github.com/ucldc/ucldc_api_data_quality.git
 cd ucldc_api_data_quality/reporting
 pip install -r requirements.txt
 ```
